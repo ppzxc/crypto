@@ -22,7 +22,7 @@ import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.bouncycastle.util.io.pem.PemWriter;
 
-public final class RSAKeyFactory {
+public final class RsaKeyFactory {
 
   public static final Transformation TRANSFORMATION = Transformation.RSA;
   public static final Provider PROVIDER = Provider.BOUNCY_CASTLE;
@@ -34,7 +34,7 @@ public final class RSAKeyFactory {
     Security.addProvider(new BouncyCastleProvider());
   }
 
-  private RSAKeyFactory() {
+  private RsaKeyFactory() {
   }
 
   public static KeyPair generate(Transformation transformation, Provider provider, int keySize)
@@ -48,22 +48,22 @@ public final class RSAKeyFactory {
     return generate(TRANSFORMATION, PROVIDER, DEFAULT_KEY_SIZE);
   }
 
-  public static RSAKey generateToString(KeyPair keyPair) throws IOException {
-    return RSAKey.builder()
+  public static AsymmetricKey generateToString(KeyPair keyPair) throws IOException {
+    return AsymmetricKey.builder()
       .publicKey(writeToString(DEFAULT_PUBLIC_KEY_COMMENT, keyPair.getPublic().getEncoded()))
       .privateKey(writeToString(DEFAULT_PRIVATE_KEY_COMMENT, keyPair.getPrivate().getEncoded()))
       .build();
   }
 
-  public static KeyPair generate(RSAKey rsaKey) {
-    return generate(rsaKey.publicKey(), rsaKey.privateKey());
+  public static KeyPair generate(AsymmetricKey asymmetricKey) {
+    return generate(asymmetricKey.publicKey(), asymmetricKey.privateKey());
   }
 
   public static KeyPair generate(String publicKey, String privateKey) {
     return new KeyPair(toPublicKey(publicKey), toPrivateKey(privateKey));
   }
 
-  public static RSAKey generateToString() throws NoSuchAlgorithmException, NoSuchProviderException, IOException {
+  public static AsymmetricKey generateToString() throws NoSuchAlgorithmException, NoSuchProviderException, IOException {
     return generateToString(generate());
   }
 
