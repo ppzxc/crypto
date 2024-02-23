@@ -4,11 +4,11 @@ plugins {
 }
 
 group = "com.github.ppzxc"
-version = "0.0.6"
+version = "0.0.7"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 repositories {
@@ -16,8 +16,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.projectlombok:lombok:1.18.30")
-    annotationProcessor("org.projectlombok:lombok:1.18.30")
     implementation("org.bouncycastle:bcprov-jdk18on:1.77")
     testImplementation(platform("org.junit:junit-bom:5.10.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")

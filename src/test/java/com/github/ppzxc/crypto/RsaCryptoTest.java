@@ -2,7 +2,6 @@ package com.github.ppzxc.crypto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -10,14 +9,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class RsaCryptoAdapterTest {
+class RsaCryptoTest {
 
   private Crypto crypto;
 
   @BeforeEach
-  void setUp() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
-    KeyPair keyPair = RsaKeyFactory.generate();
-    crypto = RsaCryptoAdapter.builder()
+  void setUp() throws NoSuchAlgorithmException, NoSuchProviderException {
+    KeyPair keyPair = AsymmetricKeyFactory.generate();
+    crypto = RsaCrypto.builder()
       .publicKey(keyPair.getPublic())
       .privateKey(keyPair.getPrivate())
       .build();

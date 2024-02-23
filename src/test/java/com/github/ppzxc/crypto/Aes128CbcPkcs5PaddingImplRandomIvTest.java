@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -241,7 +242,8 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   }
 
   private Crypto create(AesArgument aesArgument) {
-    return CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyBit), CRYPTO_TRANSFORMATION, Provider.BOUNCY_CASTLE,
+    return CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyBit), CRYPTO_TRANSFORMATION,
+      CryptoProvider.BOUNCY_CASTLE,
       RandomBytes.giveMeOne(aesArgument.ivSize));
   }
 
@@ -251,21 +253,33 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
     public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) throws Exception {
       List<AesArgument> aes128 = IntStream.rangeClosed(16, 24)
         .mapToObj(ivSize -> new AesArgument(16, ivSize))
-        .toList();
+        .collect(Collectors.toList());
       List<AesArgument> aes192 = IntStream.rangeClosed(16, 24)
         .mapToObj(ivSize -> new AesArgument(24, ivSize))
-        .toList();
+        .collect(Collectors.toList());
       List<AesArgument> aes256 = IntStream.rangeClosed(16, 24)
         .mapToObj(ivSize -> new AesArgument(32, ivSize))
-        .toList();
+        .collect(Collectors.toList());
       return Stream.of(aes128, aes192, aes256).flatMap(Collection::stream).map(Arguments::of);
     }
   }
 
-  public record AesArgument(
-    int keyBit,
-    int ivSize
-  ) {
+  public static class AesArgument {
 
+    private final int keyBit;
+    private final int ivSize;
+
+    public AesArgument(int keyBit, int ivSize) {
+      this.keyBit = keyBit;
+      this.ivSize = ivSize;
+    }
+
+    public int getKeyBit() {
+      return keyBit;
+    }
+
+    public int getIvSize() {
+      return ivSize;
+    }
   }
 }

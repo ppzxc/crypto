@@ -1,9 +1,7 @@
 package com.github.ppzxc.crypto;
 
 import java.util.Arrays;
-import lombok.Getter;
 
-@Getter
 public enum TransformationPkcs {
   PKCS5PADDING("PKCS5Padding"),
   PKCS7PADDING("PKCS7Padding");
@@ -18,6 +16,10 @@ public enum TransformationPkcs {
     return Arrays.stream(TransformationPkcs.values())
       .filter(type -> type.code.equalsIgnoreCase(value))
       .findAny()
-      .orElseThrow(() -> new IllegalArgumentException("%s not supported 'AlgorithmPkcs'".formatted(value)));
+      .orElseThrow(() -> new IllegalArgumentException(String.format("%s not supported 'AlgorithmPkcs'", value)));
+  }
+
+  public String getCode() {
+    return code;
   }
 }
