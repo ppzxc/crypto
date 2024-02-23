@@ -1,1 +1,1 @@
-rootProject.name = "crypto-adapter"
+rootProject.name = "crypto"
