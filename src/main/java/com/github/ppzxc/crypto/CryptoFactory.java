@@ -26,7 +26,7 @@ public final class CryptoFactory {
   private CryptoFactory() {
   }
 
-  public static AesCrypto aes(byte[] key, TransformationType transformationType, Transformation transformation, Provider provider,
+  public static Crypto aes(byte[] key, TransformationType transformationType, Transformation transformation, Provider provider,
     byte[] iv) {
     if (key.length != 16 && key.length != 24 && key.length != 32) {
       throw new IllegalArgumentException("key size must be 16 or 32 byte: input %d".formatted(key.length));
@@ -39,43 +39,43 @@ public final class CryptoFactory {
       .build();
   }
 
-  public static AesCrypto aes(byte[] key, Transformation transformation) {
+  public static Crypto aes(byte[] key, Transformation transformation) {
     return aes(key, ALGORITHM_TYPE, transformation, AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
   }
 
-  public static AesCrypto aes(byte[] key, Transformation transformation, Provider provider) {
+  public static Crypto aes(byte[] key, Transformation transformation, Provider provider) {
     return aes(key, ALGORITHM_TYPE, transformation, provider, AES_DEFAULT_IV);
   }
 
-  public static AesCrypto aes(byte[] key, Transformation transformation, Provider provider, byte[] iv) {
+  public static Crypto aes(byte[] key, Transformation transformation, Provider provider, byte[] iv) {
     return aes(key, ALGORITHM_TYPE, transformation, provider, iv);
   }
 
-  public static AesCrypto aes(byte[] key) {
+  public static Crypto aes(byte[] key) {
     return aes(key, ALGORITHM_TYPE, AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
   }
 
-  public static AesCrypto aes(String key) {
+  public static Crypto aes(String key) {
     return aes(key.getBytes(CHARSET), ALGORITHM_TYPE, AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
   }
 
-  public static AesCrypto aes128() {
+  public static Crypto aes128() {
     return aes(AES_DEFAULT_KEY_128BIT.getBytes(CHARSET), ALGORITHM_TYPE, AES_DEFAULT_TRANSFORMATION,
       AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
   }
 
-  public static AesCrypto aes192() {
+  public static Crypto aes192() {
     return aes(AES_DEFAULT_KEY_192BIT.getBytes(CHARSET), ALGORITHM_TYPE, AES_DEFAULT_TRANSFORMATION,
       AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
   }
 
-  public static AesCrypto aes256() {
+  public static Crypto aes256() {
     return aes(AES_DEFAULT_KEY_256BIT.getBytes(CHARSET), ALGORITHM_TYPE, AES_DEFAULT_TRANSFORMATION,
       AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
   }
 
-  public static AesCrypto empty() {
-    return new AesCrypto() {
+  public static Crypto empty() {
+    return new Crypto() {
       @Override
       public byte[] encrypt(byte[] plainText) throws CryptoException {
         return new byte[0];
