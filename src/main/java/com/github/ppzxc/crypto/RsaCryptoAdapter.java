@@ -10,7 +10,7 @@ import lombok.NonNull;
 import org.bouncycastle.util.encoders.Base64;
 
 @Builder
-public final class RSACryptoAdapter implements RSACrypto {
+public final class RsaCryptoAdapter implements RsaCrypto {
 
   @Builder.Default
   @NonNull

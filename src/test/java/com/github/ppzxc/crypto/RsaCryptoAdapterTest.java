@@ -10,14 +10,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class RSACryptoAdapterTest {
+class RsaCryptoAdapterTest {
 
-  private RSACrypto rsaCrypto;
+  private RsaCrypto rsaCrypto;
 
   @BeforeEach
   void setUp() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
-    KeyPair keyPair = RSAKeyFactory.generate();
-    rsaCrypto = RSACryptoAdapter.builder()
+    KeyPair keyPair = RsaKeyFactory.generate();
+    rsaCrypto = RsaCryptoAdapter.builder()
       .publicKey(keyPair.getPublic())
       .privateKey(keyPair.getPrivate())
       .build();
