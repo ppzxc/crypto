@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class AesCryptoAdapterTest {
+class AesCryptoTest {
 
   @DisplayName("aes 128 로 초기화된 crypto 로 암/복호화 할 수 있다. 1")
   @Test

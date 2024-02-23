@@ -164,7 +164,7 @@ class Aes128CbcPkcs5PaddingImplTest {
   void t10() throws CryptoException {
     for (int i = 0; i <= 256; i++) {
       try {
-        CryptoFactory.aes(RandomBytes.giveMeOne(16), Transformation.AES_CBC_PKCS5PADDING, Provider.BOUNCY_CASTLE,
+        CryptoFactory.aes(RandomBytes.giveMeOne(16), Transformation.AES_CBC_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE,
           RandomBytes.giveMeOne(i));
       } catch (Exception e) {
         fail(e.getMessage());
@@ -177,7 +177,7 @@ class Aes128CbcPkcs5PaddingImplTest {
   void t11() throws CryptoException {
     for (int i = 0; i <= 256; i++) {
       try {
-        CryptoFactory.aes(RandomBytes.giveMeOne(24), Transformation.AES_CBC_PKCS5PADDING, Provider.BOUNCY_CASTLE,
+        CryptoFactory.aes(RandomBytes.giveMeOne(24), Transformation.AES_CBC_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE,
           RandomBytes.giveMeOne(i));
       } catch (Exception e) {
         fail(e.getMessage());
@@ -190,7 +190,7 @@ class Aes128CbcPkcs5PaddingImplTest {
   void t12() throws CryptoException {
     for (int i = 0; i <= 256; i++) {
       try {
-        CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS5PADDING, Provider.BOUNCY_CASTLE,
+        CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE,
           RandomBytes.giveMeOne(i));
       } catch (Exception e) {
         fail(e.getMessage());

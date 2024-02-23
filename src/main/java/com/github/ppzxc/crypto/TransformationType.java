@@ -1,9 +1,7 @@
 package com.github.ppzxc.crypto;
 
 import java.util.Arrays;
-import lombok.Getter;
 
-@Getter
 public enum TransformationType {
   RSA("RSA"),
   DATA_ENCRYPTION_STANDARD("DES"),
@@ -19,6 +17,10 @@ public enum TransformationType {
     return Arrays.stream(TransformationType.values())
       .filter(type -> type.code.equalsIgnoreCase(value))
       .findAny()
-      .orElseThrow(() -> new IllegalArgumentException("%s not supported 'AlgorithmType'".formatted(value)));
+      .orElseThrow(() -> new IllegalArgumentException(String.format("%s not supported 'AlgorithmType'", value)));
+  }
+
+  public String getCode() {
+    return code;
   }
 }

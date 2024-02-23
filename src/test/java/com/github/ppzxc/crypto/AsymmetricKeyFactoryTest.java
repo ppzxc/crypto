@@ -17,17 +17,17 @@ class AsymmetricKeyFactoryTest {
     // given
 
     // when
-    KeyPair actual = RsaKeyFactory.generate();
+    KeyPair actual = AsymmetricKeyFactory.generate();
 
     // then
     assertThat(actual).isNotNull();
     assertThat(actual.getPublic()).isNotNull();
-    assertThat(actual.getPublic().getAlgorithm()).isEqualTo(RsaKeyFactory.TRANSFORMATION.getCode());
+    assertThat(actual.getPublic().getAlgorithm()).isEqualTo(AsymmetricKeyFactory.TRANSFORMATION.getCode());
     assertThat(actual.getPublic().getEncoded()).isNotNull().hasSizeGreaterThan(0);
     assertThat(actual.getPublic().getFormat()).isNotBlank();
     assertThat(actual.getPrivate()).isNotNull();
     assertThat(actual.getPrivate()).isNotNull();
-    assertThat(actual.getPrivate().getAlgorithm()).isEqualTo(RsaKeyFactory.TRANSFORMATION.getCode());
+    assertThat(actual.getPrivate().getAlgorithm()).isEqualTo(AsymmetricKeyFactory.TRANSFORMATION.getCode());
     assertThat(actual.getPrivate().getEncoded()).isNotNull().hasSizeGreaterThan(0);
     assertThat(actual.getPrivate().getFormat()).isNotBlank();
   }
@@ -36,25 +36,25 @@ class AsymmetricKeyFactoryTest {
   @Test
   void t1() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
     // given
-    KeyPair given = RsaKeyFactory.generate();
+    KeyPair given = AsymmetricKeyFactory.generate();
 
     // when
-    AsymmetricKey actual = RsaKeyFactory.generateToString(given);
+    AsymmetricKey actual = AsymmetricKeyFactory.generateToString(given);
 
     // then
-    assertThat(actual.publicKey()).isNotBlank().contains(RsaKeyFactory.DEFAULT_PUBLIC_KEY_COMMENT);
-    assertThat(actual.privateKey()).isNotBlank().contains(RsaKeyFactory.DEFAULT_PRIVATE_KEY_COMMENT);
+    assertThat(actual.getPublicKey()).isNotBlank().contains(AsymmetricKeyFactory.DEFAULT_PUBLIC_KEY_COMMENT);
+    assertThat(actual.getPrivateKey()).isNotBlank().contains(AsymmetricKeyFactory.DEFAULT_PRIVATE_KEY_COMMENT);
   }
 
   @DisplayName("String Key 가 KeyPair 로 정상 변환 된다.")
   @Test
   void t2() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
     // given
-    KeyPair expected = RsaKeyFactory.generate();
-    AsymmetricKey given = RsaKeyFactory.generateToString(expected);
+    KeyPair expected = AsymmetricKeyFactory.generate();
+    AsymmetricKey given = AsymmetricKeyFactory.generateToString(expected);
 
     // when
-    KeyPair actual = RsaKeyFactory.generate(given);
+    KeyPair actual = AsymmetricKeyFactory.generate(given);
 
     // then
     assertThat(actual.getPublic().getAlgorithm()).isEqualTo(expected.getPublic().getAlgorithm());

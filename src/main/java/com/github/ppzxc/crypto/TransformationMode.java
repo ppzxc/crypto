@@ -1,9 +1,7 @@
 package com.github.ppzxc.crypto;
 
 import java.util.Arrays;
-import lombok.Getter;
 
-@Getter
 public enum TransformationMode {
   ELECTRONIC_CODE_BLOCK("ECB"),
   CIPHER_BLOCK_CHAINING("CBC"),
@@ -21,6 +19,10 @@ public enum TransformationMode {
     return Arrays.stream(TransformationMode.values())
       .filter(type -> type.code.equalsIgnoreCase(value))
       .findAny()
-      .orElseThrow(() -> new IllegalArgumentException("%s not supported 'AlgorithmMode'".formatted(value)));
+      .orElseThrow(() -> new IllegalArgumentException(String.format("%s not supported 'AlgorithmMode'", value)));
+  }
+
+  public String getCode() {
+    return code;
   }
 }

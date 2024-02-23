@@ -1,14 +1,15 @@
 package com.github.ppzxc.crypto;
 
-import lombok.Getter;
-
-@Getter
-public enum Provider {
+public enum CryptoProvider {
   BOUNCY_CASTLE("BC");
 
   private final String code;
 
-  Provider(String code) {
+  CryptoProvider(String code) {
     this.code = code;
+  }
+
+  public String getCode() {
+    return code;
   }
 }

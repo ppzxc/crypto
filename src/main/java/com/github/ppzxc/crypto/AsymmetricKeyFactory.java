@@ -22,10 +22,10 @@ import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.bouncycastle.util.io.pem.PemWriter;
 
-public final class RsaKeyFactory {
+public final class AsymmetricKeyFactory {
 
   public static final Transformation TRANSFORMATION = Transformation.RSA;
-  public static final Provider PROVIDER = Provider.BOUNCY_CASTLE;
+  public static final CryptoProvider CRYPTO_PROVIDER = CryptoProvider.BOUNCY_CASTLE;
   public static final int DEFAULT_KEY_SIZE = 2048;
   public static final String DEFAULT_PUBLIC_KEY_COMMENT = "PUBLIC KEY";
   public static final String DEFAULT_PRIVATE_KEY_COMMENT = "RSA PRIVATE KEY";
@@ -34,29 +34,27 @@ public final class RsaKeyFactory {
     Security.addProvider(new BouncyCastleProvider());
   }
 
-  private RsaKeyFactory() {
+  private AsymmetricKeyFactory() {
   }
 
-  public static KeyPair generate(Transformation transformation, Provider provider, int keySize)
+  public static KeyPair generate(Transformation transformation, CryptoProvider cryptoProvider, int keySize)
     throws NoSuchAlgorithmException, NoSuchProviderException {
-    KeyPairGenerator generator = KeyPairGenerator.getInstance(transformation.getCode(), provider.getCode());
+    KeyPairGenerator generator = KeyPairGenerator.getInstance(transformation.getCode(), cryptoProvider.getCode());
     generator.initialize(keySize, new SecureRandom());
     return generator.generateKeyPair();
   }
 
   public static KeyPair generate() throws NoSuchAlgorithmException, NoSuchProviderException {
-    return generate(TRANSFORMATION, PROVIDER, DEFAULT_KEY_SIZE);
+    return generate(TRANSFORMATION, CRYPTO_PROVIDER, DEFAULT_KEY_SIZE);
   }
 
   public static AsymmetricKey generateToString(KeyPair keyPair) throws IOException {
-    return AsymmetricKey.builder()
-      .publicKey(writeToString(DEFAULT_PUBLIC_KEY_COMMENT, keyPair.getPublic().getEncoded()))
-      .privateKey(writeToString(DEFAULT_PRIVATE_KEY_COMMENT, keyPair.getPrivate().getEncoded()))
-      .build();
+    return AsymmetricKey.of(writeToString(DEFAULT_PUBLIC_KEY_COMMENT, keyPair.getPublic().getEncoded()),
+      writeToString(DEFAULT_PRIVATE_KEY_COMMENT, keyPair.getPrivate().getEncoded()));
   }
 
   public static KeyPair generate(AsymmetricKey asymmetricKey) {
-    return generate(asymmetricKey.publicKey(), asymmetricKey.privateKey());
+    return generate(asymmetricKey.getPublicKey(), asymmetricKey.getPrivateKey());
   }
 
   public static KeyPair generate(String publicKey, String privateKey) {

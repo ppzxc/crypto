@@ -2,6 +2,8 @@ package com.github.ppzxc.crypto;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.Security;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -10,14 +12,13 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 public final class CryptoFactory {
 
   public static final Charset CHARSET = StandardCharsets.UTF_8;
-  public static final TransformationType ALGORITHM_TYPE = TransformationType.ADVANCED_ENCRYPTION_STANDARD;
-  public static final Provider AES_DEFAULT_PROVIDER = Provider.BOUNCY_CASTLE;
-  public static final Transformation AES_DEFAULT_TRANSFORMATION = Transformation.AES_CBC_PKCS5PADDING;
-  public static final String AES_DEFAULT_KEY_128BIT = "nanoitSecretKeys";
-  public static final String AES_DEFAULT_KEY_192BIT = "nanoitSecretKeysNanoitSe";
-  public static final String AES_DEFAULT_KEY_256BIT = "nanoitSecretKeysNanoitSecretKeys";
-  public static final String AES_DEFAULT_IV_STRING = "nanoitDefaultIvs";
-  public static final byte[] AES_DEFAULT_IV = AES_DEFAULT_IV_STRING.getBytes(CHARSET);
+  public static final CryptoProvider AES_DEFAULT_CRYPTO_PROVIDER = CryptoProvider.BOUNCY_CASTLE;
+  public static final Transformation DEFAULT_AES_TRANSFORMATION = Transformation.AES_CBC_PKCS5PADDING;
+  public static final String DEFAULT_AES_128_SYMMETRIC_KEY = "nanoitSecretKeys";
+  public static final String DEFAULT_AES_192_SYMMETRIC_KEY = "nanoitSecretKeysNanoitSe";
+  public static final String DEFAULT_AES_256_SYMMETRIC_KEY = "nanoitSecretKeysNanoitSecretKeys";
+  public static final String DEFAULT_AES_IV_PARAMETER = "nanoitDefaultIvs";
+  public static final byte[] DEFAULT_AES_IV_PARAMETER_BYTES = DEFAULT_AES_IV_PARAMETER.getBytes(CHARSET);
 
   static {
     Security.addProvider(new BouncyCastleProvider());
@@ -26,95 +27,63 @@ public final class CryptoFactory {
   private CryptoFactory() {
   }
 
-  public static Crypto aes(byte[] key, TransformationType transformationType, Transformation transformation, Provider provider,
+  public static Crypto aes(byte[] key, TransformationType transformationType, Transformation transformation,
+    CryptoProvider cryptoProvider,
     byte[] iv) {
     if (key.length != 16 && key.length != 24 && key.length != 32) {
-      throw new IllegalArgumentException("key size must be 16 or 32 byte: input %d".formatted(key.length));
+      throw new IllegalArgumentException(String.format("key size must be 16 or 32 byte: input %d", key.length));
     }
-    return AesCryptoAdapter.builder()
+    return AesCrypto.builder()
       .secretKeySpec(new SecretKeySpec(key, transformationType.getCode()))
       .ivParameterSpec(new IvParameterSpec(iv))
       .transformation(transformation)
-      .provider(provider)
+      .cryptoProvider(cryptoProvider)
       .build();
   }
 
   public static Crypto aes(byte[] key, Transformation transformation) {
-    return aes(key, ALGORITHM_TYPE, transformation, AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
+    return aes(key, transformation.getTransformationType(), transformation, AES_DEFAULT_CRYPTO_PROVIDER,
+      DEFAULT_AES_IV_PARAMETER_BYTES);
   }
 
-  public static Crypto aes(byte[] key, Transformation transformation, Provider provider) {
-    return aes(key, ALGORITHM_TYPE, transformation, provider, AES_DEFAULT_IV);
+  public static Crypto aes(byte[] key, Transformation transformation, CryptoProvider cryptoProvider) {
+    return aes(key, transformation.getTransformationType(), transformation, cryptoProvider,
+      DEFAULT_AES_IV_PARAMETER_BYTES);
   }
 
-  public static Crypto aes(byte[] key, Transformation transformation, Provider provider, byte[] iv) {
-    return aes(key, ALGORITHM_TYPE, transformation, provider, iv);
+  public static Crypto aes(byte[] key, Transformation transformation, CryptoProvider cryptoProvider, byte[] iv) {
+    return aes(key, transformation.getTransformationType(), transformation, cryptoProvider, iv);
   }
 
   public static Crypto aes(byte[] key) {
-    return aes(key, ALGORITHM_TYPE, AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
+    return aes(key, DEFAULT_AES_TRANSFORMATION.getTransformationType(), DEFAULT_AES_TRANSFORMATION,
+      AES_DEFAULT_CRYPTO_PROVIDER, DEFAULT_AES_IV_PARAMETER_BYTES);
   }
 
   public static Crypto aes(String key) {
-    return aes(key.getBytes(CHARSET), ALGORITHM_TYPE, AES_DEFAULT_TRANSFORMATION, AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
+    return aes(key.getBytes(CHARSET), DEFAULT_AES_TRANSFORMATION.getTransformationType(), DEFAULT_AES_TRANSFORMATION,
+      AES_DEFAULT_CRYPTO_PROVIDER, DEFAULT_AES_IV_PARAMETER_BYTES);
   }
 
   public static Crypto aes128() {
-    return aes(AES_DEFAULT_KEY_128BIT.getBytes(CHARSET), ALGORITHM_TYPE, AES_DEFAULT_TRANSFORMATION,
-      AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
+    return aes(DEFAULT_AES_128_SYMMETRIC_KEY.getBytes(CHARSET), DEFAULT_AES_TRANSFORMATION.getTransformationType(),
+      DEFAULT_AES_TRANSFORMATION, AES_DEFAULT_CRYPTO_PROVIDER, DEFAULT_AES_IV_PARAMETER_BYTES);
   }
 
   public static Crypto aes192() {
-    return aes(AES_DEFAULT_KEY_192BIT.getBytes(CHARSET), ALGORITHM_TYPE, AES_DEFAULT_TRANSFORMATION,
-      AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
+    return aes(DEFAULT_AES_192_SYMMETRIC_KEY.getBytes(CHARSET), DEFAULT_AES_TRANSFORMATION.getTransformationType(),
+      DEFAULT_AES_TRANSFORMATION, AES_DEFAULT_CRYPTO_PROVIDER, DEFAULT_AES_IV_PARAMETER_BYTES);
   }
 
   public static Crypto aes256() {
-    return aes(AES_DEFAULT_KEY_256BIT.getBytes(CHARSET), ALGORITHM_TYPE, AES_DEFAULT_TRANSFORMATION,
-      AES_DEFAULT_PROVIDER, AES_DEFAULT_IV);
+    return aes(DEFAULT_AES_256_SYMMETRIC_KEY.getBytes(CHARSET), DEFAULT_AES_TRANSFORMATION.getTransformationType(),
+      DEFAULT_AES_TRANSFORMATION, AES_DEFAULT_CRYPTO_PROVIDER, DEFAULT_AES_IV_PARAMETER_BYTES);
   }
 
-  public static Crypto empty() {
-    return new Crypto() {
-      @Override
-      public byte[] encrypt(byte[] plainText) throws CryptoException {
-        return new byte[0];
-      }
-
-      @Override
-      public byte[] encrypt(String plainText) throws CryptoException {
-        return new byte[0];
-      }
-
-      @Override
-      public String encryptToString(byte[] plainText) throws CryptoException {
-        return null;
-      }
-
-      @Override
-      public String encryptToString(String plainText) throws CryptoException {
-        return null;
-      }
-
-      @Override
-      public byte[] decrypt(byte[] cipherText) throws CryptoException {
-        return new byte[0];
-      }
-
-      @Override
-      public byte[] decrypt(String cipherText) throws CryptoException {
-        return new byte[0];
-      }
-
-      @Override
-      public String decryptToString(byte[] cipherText) throws CryptoException {
-        return null;
-      }
-
-      @Override
-      public String decryptToString(String cipherText) throws CryptoException {
-        return null;
-      }
-    };
+  public static Crypto rsa(PublicKey publicKey, PrivateKey privateKey) {
+    return RsaCrypto.builder()
+      .publicKey(publicKey)
+      .privateKey(privateKey)
+      .build();
   }
 }

@@ -1,14 +1,17 @@
 package com.github.ppzxc.crypto;
 
-import lombok.Builder;
-import lombok.NonNull;
+public class SymmetricKey {
 
-@Builder
-public record SymmetricKey(@NonNull String key) {
+  private final String key;
 
-  public SymmetricKey {
-    if (key.isBlank()) {
+  public SymmetricKey(String key) {
+    this.key = key;
+    if (key == null || key.trim().isEmpty()) {
       throw new IllegalArgumentException("'SymmetricKey' require not blank");
     }
+  }
+
+  public String getKey() {
+    return key;
   }
 }
