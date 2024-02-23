@@ -15,7 +15,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
-import org.springframework.core.NestedExceptionUtils;
 
 class Aes128CbcPkcs5PaddingImplRandomIvTest {
 
@@ -38,7 +37,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
       assertThat(actual).isEqualTo(expected);
     } else {
       assertThatThrownBy(() -> given.encrypt(expected))
-        .satisfies(exception -> assertThat(NestedExceptionUtils.getRootCause(exception)).isInstanceOf(
+        .satisfies(exception -> assertThat(exception.getCause()).isInstanceOf(
           InvalidAlgorithmParameterException.class));
     }
   }
@@ -60,7 +59,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
       assertThat(actual).isEqualTo(expected);
     } else {
       assertThatThrownBy(() -> given.encryptToString(expected))
-        .satisfies(exception -> assertThat(NestedExceptionUtils.getRootCause(exception)).isInstanceOf(
+        .satisfies(exception -> assertThat(exception.getCause()).isInstanceOf(
           InvalidAlgorithmParameterException.class));
     }
   }
@@ -82,7 +81,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
       assertThat(actual).isEqualTo(new String(expected, StandardCharsets.UTF_8));
     } else {
       assertThatThrownBy(() -> given.encryptToString(expected))
-        .satisfies(exception -> assertThat(NestedExceptionUtils.getRootCause(exception)).isInstanceOf(
+        .satisfies(exception -> assertThat(exception.getCause()).isInstanceOf(
           InvalidAlgorithmParameterException.class));
     }
   }
@@ -104,7 +103,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
       assertThat(actual.getBytes(StandardCharsets.UTF_8)).isEqualTo(expected);
     } else {
       assertThatThrownBy(() -> given.encryptToString(expected))
-        .satisfies(exception -> assertThat(NestedExceptionUtils.getRootCause(exception)).isInstanceOf(
+        .satisfies(exception -> assertThat(exception.getCause()).isInstanceOf(
           InvalidAlgorithmParameterException.class));
     }
   }
@@ -126,7 +125,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
       assertThat(actual).isEqualTo(expected.getBytes(StandardCharsets.UTF_8));
     } else {
       assertThatThrownBy(() -> given.encrypt(expected))
-        .satisfies(exception -> assertThat(NestedExceptionUtils.getRootCause(exception)).isInstanceOf(
+        .satisfies(exception -> assertThat(exception.getCause()).isInstanceOf(
           InvalidAlgorithmParameterException.class));
     }
   }
@@ -148,7 +147,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
       assertThat(actual).isEqualTo(expected.getBytes(StandardCharsets.UTF_8));
     } else {
       assertThatThrownBy(() -> given.encrypt(expected.getBytes(StandardCharsets.UTF_8)))
-        .satisfies(exception -> assertThat(NestedExceptionUtils.getRootCause(exception)).isInstanceOf(
+        .satisfies(exception -> assertThat(exception.getCause()).isInstanceOf(
           InvalidAlgorithmParameterException.class));
     }
   }
@@ -170,7 +169,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
       assertThat(actual).isEqualTo(expected.getBytes(StandardCharsets.UTF_8));
     } else {
       assertThatThrownBy(() -> given.encryptToString(expected))
-        .satisfies(exception -> assertThat(NestedExceptionUtils.getRootCause(exception)).isInstanceOf(
+        .satisfies(exception -> assertThat(exception.getCause()).isInstanceOf(
           InvalidAlgorithmParameterException.class));
     }
   }
@@ -192,7 +191,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
       assertThat(actual).isEqualTo(expected.getBytes(StandardCharsets.UTF_8));
     } else {
       assertThatThrownBy(() -> given.encryptToString(expected))
-        .satisfies(exception -> assertThat(NestedExceptionUtils.getRootCause(exception)).isInstanceOf(
+        .satisfies(exception -> assertThat(exception.getCause()).isInstanceOf(
           InvalidAlgorithmParameterException.class));
     }
   }
@@ -214,7 +213,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
       assertThat(actual).isEqualTo(expected);
     } else {
       assertThatThrownBy(() -> given.encryptToString(expected))
-        .satisfies(exception -> assertThat(NestedExceptionUtils.getRootCause(exception)).isInstanceOf(
+        .satisfies(exception -> assertThat(exception.getCause()).isInstanceOf(
           InvalidAlgorithmParameterException.class));
     }
   }
@@ -236,7 +235,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
       assertThat(actual).isEqualTo(expected);
     } else {
       assertThatThrownBy(() -> given.encryptToString(expected))
-        .satisfies(exception -> assertThat(NestedExceptionUtils.getRootCause(exception)).isInstanceOf(
+        .satisfies(exception -> assertThat(exception.getCause()).isInstanceOf(
           InvalidAlgorithmParameterException.class));
     }
   }

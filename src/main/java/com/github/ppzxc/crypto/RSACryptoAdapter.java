@@ -7,10 +7,8 @@ import java.security.PublicKey;
 import javax.crypto.Cipher;
 import lombok.Builder;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.util.encoders.Base64;
 
-@Slf4j
 @Builder
 public final class RSACryptoAdapter implements RSACrypto {
 
