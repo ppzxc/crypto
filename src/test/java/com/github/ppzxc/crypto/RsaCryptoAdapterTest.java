@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Test;
 
 class RsaCryptoAdapterTest {
 
-  private RsaCrypto rsaCrypto;
+  private Crypto crypto;
 
   @BeforeEach
   void setUp() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
     KeyPair keyPair = RsaKeyFactory.generate();
-    rsaCrypto = RsaCryptoAdapter.builder()
+    crypto = RsaCryptoAdapter.builder()
       .publicKey(keyPair.getPublic())
       .privateKey(keyPair.getPrivate())
       .build();
@@ -30,7 +30,7 @@ class RsaCryptoAdapterTest {
     byte[] plainText = RandomBytes.giveMeOne(245);
 
     // when
-    byte[] cipherText = rsaCrypto.encrypt(plainText);
+    byte[] cipherText = crypto.encrypt(plainText);
 
     // then
     assertThat(cipherText).isNotEqualTo(plainText);
@@ -41,10 +41,10 @@ class RsaCryptoAdapterTest {
   void t1() throws CryptoException {
     // given
     byte[] expected = RandomBytes.giveMeOne(245);
-    byte[] cipherText = rsaCrypto.encrypt(expected);
+    byte[] cipherText = crypto.encrypt(expected);
 
     // when
-    byte[] actual = rsaCrypto.decrypt(cipherText);
+    byte[] actual = crypto.decrypt(cipherText);
 
     // then
     assertThat(actual).isEqualTo(expected);

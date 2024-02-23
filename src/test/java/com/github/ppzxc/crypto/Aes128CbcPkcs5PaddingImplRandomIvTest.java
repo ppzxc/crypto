@@ -25,7 +25,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   @ArgumentsSource(value = AllArgumentsProvider.class)
   void t0(AesArgument aesArgument) throws CryptoException {
     // given
-    AesCrypto given = create(aesArgument);
+    Crypto given = create(aesArgument);
     byte[] expected = RandomBytes.giveMeOne();
 
     if (aesArgument.ivSize == 16) {
@@ -47,7 +47,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   @ArgumentsSource(value = AllArgumentsProvider.class)
   void t1(AesArgument aesArgument) throws CryptoException {
     // given
-    AesCrypto given = create(aesArgument);
+    Crypto given = create(aesArgument);
     byte[] expected = RandomBytes.giveMeOne();
 
     if (aesArgument.ivSize == 16) {
@@ -69,7 +69,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   @ArgumentsSource(value = AllArgumentsProvider.class)
   void t2(AesArgument aesArgument) throws CryptoException {
     // given
-    AesCrypto given = create(aesArgument);
+    Crypto given = create(aesArgument);
     byte[] expected = RandomBytes.giveMeOne();
 
     if (aesArgument.ivSize == 16) {
@@ -91,7 +91,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   @ArgumentsSource(value = AllArgumentsProvider.class)
   void t3(AesArgument aesArgument) throws CryptoException {
     // given
-    AesCrypto given = create(aesArgument);
+    Crypto given = create(aesArgument);
     byte[] expected = RandomBytes.giveMeOneWithUtf8();
 
     if (aesArgument.ivSize == 16) {
@@ -113,7 +113,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   @ArgumentsSource(value = AllArgumentsProvider.class)
   void t4(AesArgument aesArgument) throws CryptoException {
     // given
-    AesCrypto given = create(aesArgument);
+    Crypto given = create(aesArgument);
     String expected = RandomString.giveMeOne(512);
 
     if (aesArgument.ivSize == 16) {
@@ -135,7 +135,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   @ArgumentsSource(value = AllArgumentsProvider.class)
   void t5(AesArgument aesArgument) throws CryptoException {
     // given
-    AesCrypto given = create(aesArgument);
+    Crypto given = create(aesArgument);
     String expected = RandomString.giveMeOne(512);
 
     if (aesArgument.ivSize == 16) {
@@ -157,7 +157,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   @ArgumentsSource(value = AllArgumentsProvider.class)
   void t6(AesArgument aesArgument) throws CryptoException {
     // given
-    AesCrypto given = create(aesArgument);
+    Crypto given = create(aesArgument);
     String expected = RandomString.giveMeOne(512);
 
     if (aesArgument.ivSize == 16) {
@@ -179,7 +179,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   @ArgumentsSource(value = AllArgumentsProvider.class)
   void t7(AesArgument aesArgument) throws CryptoException {
     // given
-    AesCrypto given = create(aesArgument);
+    Crypto given = create(aesArgument);
     String expected = RandomString.giveMeOne(512);
 
     if (aesArgument.ivSize == 16) {
@@ -201,7 +201,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   @ArgumentsSource(value = AllArgumentsProvider.class)
   void t8(AesArgument aesArgument) throws CryptoException {
     // given
-    AesCrypto given = create(aesArgument);
+    Crypto given = create(aesArgument);
     String expected = RandomString.giveMeOne(512);
 
     if (aesArgument.ivSize == 16) {
@@ -223,7 +223,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   @ArgumentsSource(value = AllArgumentsProvider.class)
   void t9(AesArgument aesArgument) throws CryptoException {
     // given
-    AesCrypto given = create(aesArgument);
+    Crypto given = create(aesArgument);
     String expected = RandomString.giveMeOne(512);
 
     if (aesArgument.ivSize == 16) {
@@ -240,7 +240,7 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
     }
   }
 
-  private AesCrypto create(AesArgument aesArgument) {
+  private Crypto create(AesArgument aesArgument) {
     return CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyBit), CRYPTO_TRANSFORMATION, Provider.BOUNCY_CASTLE,
       RandomBytes.giveMeOne(aesArgument.ivSize));
   }

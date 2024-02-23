@@ -10,7 +10,7 @@ import lombok.NonNull;
 import org.bouncycastle.util.encoders.Base64;
 
 @Builder
-public final class AesCryptoAdapter implements AesCrypto {
+public final class AesCryptoAdapter implements Crypto {
 
   @NonNull
   private SecretKeySpec secretKeySpec;

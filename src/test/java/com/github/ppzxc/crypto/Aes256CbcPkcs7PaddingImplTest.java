@@ -12,7 +12,7 @@ class Aes256CbcPkcs7PaddingImplTest {
   @Test
   void t0() throws CryptoException {
     // given
-    AesCrypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
+    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
     byte[] expected = RandomBytes.giveMeOne();
 
     // when
@@ -27,7 +27,7 @@ class Aes256CbcPkcs7PaddingImplTest {
   @Test
   void t1() throws CryptoException {
     // given
-    AesCrypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
+    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
     byte[] expected = RandomBytes.giveMeOne();
 
     // when
@@ -42,7 +42,7 @@ class Aes256CbcPkcs7PaddingImplTest {
   @Test
   void t2() throws CryptoException {
     // given
-    AesCrypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
+    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
     byte[] expected = RandomBytes.giveMeOne();
 
     // when
@@ -57,7 +57,7 @@ class Aes256CbcPkcs7PaddingImplTest {
   @Test
   void t3() throws CryptoException {
     // given
-    AesCrypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
+    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
     byte[] expected = RandomBytes.giveMeOneWithUtf8();
 
     // when
@@ -72,7 +72,7 @@ class Aes256CbcPkcs7PaddingImplTest {
   @Test
   void t4() throws CryptoException {
     // given
-    AesCrypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
+    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
     String expected = RandomString.giveMeOne(512);
 
     // when
@@ -87,7 +87,7 @@ class Aes256CbcPkcs7PaddingImplTest {
   @Test
   void t5() throws CryptoException {
     // given
-    AesCrypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
+    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
     String expected = RandomString.giveMeOne(512);
 
     // when
@@ -102,7 +102,7 @@ class Aes256CbcPkcs7PaddingImplTest {
   @Test
   void t6() throws CryptoException {
     // given
-    AesCrypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
+    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
     String expected = RandomString.giveMeOne(512);
 
     // when
@@ -117,7 +117,7 @@ class Aes256CbcPkcs7PaddingImplTest {
   @Test
   void t7() throws CryptoException {
     // given
-    AesCrypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
+    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
     String expected = RandomString.giveMeOne(512);
 
     // when
@@ -132,7 +132,7 @@ class Aes256CbcPkcs7PaddingImplTest {
   @Test
   void t8() throws CryptoException {
     // given
-    AesCrypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
+    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
     String expected = RandomString.giveMeOne(512);
 
     // when
@@ -147,7 +147,7 @@ class Aes256CbcPkcs7PaddingImplTest {
   @Test
   void t9() throws CryptoException {
     // given
-    AesCrypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
+    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(32), Transformation.AES_CBC_PKCS7PADDING);
     String expected = RandomString.giveMeOne(512);
 
     // when
