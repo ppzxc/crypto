@@ -10,7 +10,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.SecureRandom;
 import java.security.Security;
 import java.security.spec.EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
@@ -24,11 +23,10 @@ import org.bouncycastle.util.io.pem.PemWriter;
 
 public final class AsymmetricKeyFactory {
 
-  public static final Transformation TRANSFORMATION = Transformation.RSA;
   public static final CryptoProvider CRYPTO_PROVIDER = CryptoProvider.BOUNCY_CASTLE;
   public static final int DEFAULT_KEY_SIZE = 2048;
   public static final String DEFAULT_PUBLIC_KEY_COMMENT = "PUBLIC KEY";
-  public static final String DEFAULT_PRIVATE_KEY_COMMENT = "RSA PRIVATE KEY";
+  public static final String DEFAULT_PRIVATE_RSA_KEY_COMMENT = "RSA PRIVATE KEY";
 
   static {
     Security.addProvider(new BouncyCastleProvider());
@@ -37,58 +35,60 @@ public final class AsymmetricKeyFactory {
   private AsymmetricKeyFactory() {
   }
 
-  public static KeyPair generate(Transformation transformation, CryptoProvider cryptoProvider, int keySize)
+  /**
+   * 표준 key size. DiffieHellman (1024, 2048, 4096). DSA (1024, 2048). RSA (1024, 2048, 4096).
+   */
+  public static KeyPair generate(AsymmetricKeyType asymmetricKeyType, CryptoProvider cryptoProvider, int keySize)
     throws NoSuchAlgorithmException, NoSuchProviderException {
-    KeyPairGenerator generator = KeyPairGenerator.getInstance(transformation.getCode(), cryptoProvider.getCode());
-    generator.initialize(keySize, new SecureRandom());
+    KeyPairGenerator generator = KeyPairGenerator.getInstance(asymmetricKeyType.name(), cryptoProvider.getCode());
+    generator.initialize(keySize, Constants.SECURE_RANDOM);
     return generator.generateKeyPair();
   }
 
-  public static KeyPair generate() throws NoSuchAlgorithmException, NoSuchProviderException {
-    return generate(TRANSFORMATION, CRYPTO_PROVIDER, DEFAULT_KEY_SIZE);
-  }
-
-  public static AsymmetricKey generateToString(KeyPair keyPair) throws IOException {
-    return AsymmetricKey.of(writeToString(DEFAULT_PUBLIC_KEY_COMMENT, keyPair.getPublic().getEncoded()),
-      writeToString(DEFAULT_PRIVATE_KEY_COMMENT, keyPair.getPrivate().getEncoded()));
-  }
-
   public static KeyPair generate(AsymmetricKey asymmetricKey) {
-    return generate(asymmetricKey.getPublicKey(), asymmetricKey.getPrivateKey());
+    return new KeyPair(
+      toPublicKey(asymmetricKey.getAsymmetricKeyType(), asymmetricKey.getPublicKey(), X509EncodedKeySpec::new),
+      toPrivateKey(asymmetricKey.getAsymmetricKeyType(), asymmetricKey.getPrivateKey(), PKCS8EncodedKeySpec::new));
   }
 
-  public static KeyPair generate(String publicKey, String privateKey) {
-    return new KeyPair(toPublicKey(publicKey), toPrivateKey(privateKey));
+  public static AsymmetricKey generate(AsymmetricKeyType asymmetricKeyType)
+    throws NoSuchAlgorithmException, NoSuchProviderException, IOException {
+    return toAsymmetricKey(asymmetricKeyType, generateRsa());
   }
 
-  public static AsymmetricKey generateToString() throws NoSuchAlgorithmException, NoSuchProviderException, IOException {
-    return generateToString(generate());
+  public static KeyPair generateRsa() throws NoSuchAlgorithmException, NoSuchProviderException {
+    return generate(AsymmetricKeyType.RSA, CRYPTO_PROVIDER, DEFAULT_KEY_SIZE);
   }
 
-  public static PublicKey toPublicKey(String publicKey, Function<byte[], EncodedKeySpec> encodedKeySpec) {
+  public static KeyPair generateRsa(int length) throws NoSuchAlgorithmException, NoSuchProviderException {
+    return generate(AsymmetricKeyType.RSA, CRYPTO_PROVIDER, length);
+  }
+
+  public static PublicKey toPublicKey(AsymmetricKeyType asymmetricKeyType, String publicKey,
+    Function<byte[], EncodedKeySpec> encodedKeySpec) {
     try (PemReader pemReader = new PemReader(new StringReader(publicKey))) {
-      return KeyFactory.getInstance(TRANSFORMATION.getCode())
+      return KeyFactory.getInstance(asymmetricKeyType.name())
         .generatePublic(encodedKeySpec.apply(pemReader.readPemObject().getContent()));
     } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
       throw new RuntimeException(e);
     }
   }
 
-  public static PublicKey toPublicKey(String publicKey) {
-    return toPublicKey(publicKey, X509EncodedKeySpec::new);
-  }
-
-  public static PrivateKey toPrivateKey(String privateKey, Function<byte[], EncodedKeySpec> EncodedKeySpec) {
+  public static PrivateKey toPrivateKey(AsymmetricKeyType asymmetricKeyType, String privateKey,
+    Function<byte[], EncodedKeySpec> EncodedKeySpec) {
     try (PemReader pemReader = new PemReader(new StringReader(privateKey))) {
-      return KeyFactory.getInstance(TRANSFORMATION.getCode())
+      return KeyFactory.getInstance(asymmetricKeyType.name())
         .generatePrivate(EncodedKeySpec.apply(pemReader.readPemObject().getContent()));
     } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
       throw new RuntimeException(e);
     }
   }
 
-  public static PrivateKey toPrivateKey(String privateKey) {
-    return toPrivateKey(privateKey, PKCS8EncodedKeySpec::new);
+  public static AsymmetricKey toAsymmetricKey(AsymmetricKeyType asymmetricKeyType, KeyPair keyPair)
+    throws IOException {
+    return AsymmetricKey.of(asymmetricKeyType,
+      writeToString(DEFAULT_PUBLIC_KEY_COMMENT, keyPair.getPublic().getEncoded()),
+      writeToString(DEFAULT_PRIVATE_RSA_KEY_COMMENT, keyPair.getPrivate().getEncoded()));
   }
 
   private static String writeToString(String desc, byte[] key) throws IOException {

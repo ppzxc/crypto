@@ -15,7 +15,7 @@ class RsaCryptoTest {
 
   @BeforeEach
   void setUp() throws NoSuchAlgorithmException, NoSuchProviderException {
-    KeyPair keyPair = AsymmetricKeyFactory.generate();
+    KeyPair keyPair = AsymmetricKeyFactory.generateRsa();
     crypto = RsaCrypto.builder()
       .publicKey(keyPair.getPublic())
       .privateKey(keyPair.getPrivate())

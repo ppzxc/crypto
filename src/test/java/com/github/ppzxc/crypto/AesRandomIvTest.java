@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -17,9 +16,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-class Aes128CbcPkcs5PaddingImplRandomIvTest {
-
-  public static final Transformation CRYPTO_TRANSFORMATION = Transformation.AES_CBC_PKCS5PADDING;
+class AesRandomIvTest {
 
   @DisplayName("aes crypto 로 암복호화 할때 iv 값은 16 byte 만 허용된다. 1")
   @ParameterizedTest
@@ -242,25 +239,88 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
   }
 
   private Crypto create(AesArgument aesArgument) {
-    return CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyBit), CRYPTO_TRANSFORMATION,
-      CryptoProvider.BOUNCY_CASTLE,
-      RandomBytes.giveMeOne(aesArgument.ivSize));
+    return CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyBit), aesArgument.transformation,
+      CryptoProvider.BOUNCY_CASTLE, RandomBytes.giveMeOne(aesArgument.ivSize));
   }
 
   static class AllArgumentsProvider implements ArgumentsProvider {
 
     @Override
     public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) throws Exception {
-      List<AesArgument> aes128 = IntStream.rangeClosed(16, 24)
-        .mapToObj(ivSize -> new AesArgument(16, ivSize))
-        .collect(Collectors.toList());
-      List<AesArgument> aes192 = IntStream.rangeClosed(16, 24)
-        .mapToObj(ivSize -> new AesArgument(24, ivSize))
-        .collect(Collectors.toList());
-      List<AesArgument> aes256 = IntStream.rangeClosed(16, 24)
-        .mapToObj(ivSize -> new AesArgument(32, ivSize))
-        .collect(Collectors.toList());
-      return Stream.of(aes128, aes192, aes256).flatMap(Collection::stream).map(Arguments::of);
+      return Stream.of(
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(16, ivSize, Transformation.AES_CBC_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(24, ivSize, Transformation.AES_CBC_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(32, ivSize, Transformation.AES_CBC_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(16, ivSize, Transformation.AES_CBC_PKCS7PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(24, ivSize, Transformation.AES_CBC_PKCS7PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(32, ivSize, Transformation.AES_CBC_PKCS7PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(16, ivSize, Transformation.AES_CFB_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(24, ivSize, Transformation.AES_CFB_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(32, ivSize, Transformation.AES_CFB_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(16, ivSize, Transformation.AES_CFB_PKCS7PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(24, ivSize, Transformation.AES_CFB_PKCS7PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(32, ivSize, Transformation.AES_CFB_PKCS7PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(16, ivSize, Transformation.AES_OFB_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(24, ivSize, Transformation.AES_OFB_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(32, ivSize, Transformation.AES_OFB_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(16, ivSize, Transformation.AES_OFB_PKCS7PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(24, ivSize, Transformation.AES_OFB_PKCS7PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(32, ivSize, Transformation.AES_OFB_PKCS7PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(16, ivSize, Transformation.AES_CTR_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(24, ivSize, Transformation.AES_CTR_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(32, ivSize, Transformation.AES_CTR_PKCS5PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(16, ivSize, Transformation.AES_CTR_PKCS7PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(24, ivSize, Transformation.AES_CTR_PKCS7PADDING))
+          .collect(Collectors.toList()),
+        IntStream.rangeClosed(16, 24)
+          .mapToObj(ivSize -> new AesArgument(32, ivSize, Transformation.AES_CTR_PKCS7PADDING))
+          .collect(Collectors.toList())
+      ).flatMap(Collection::stream).map(Arguments::of);
     }
   }
 
@@ -268,10 +328,12 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
 
     private final int keyBit;
     private final int ivSize;
+    private final Transformation transformation;
 
-    public AesArgument(int keyBit, int ivSize) {
+    public AesArgument(int keyBit, int ivSize, Transformation transformation) {
       this.keyBit = keyBit;
       this.ivSize = ivSize;
+      this.transformation = transformation;
     }
 
     public int getKeyBit() {
@@ -280,6 +342,15 @@ class Aes128CbcPkcs5PaddingImplRandomIvTest {
 
     public int getIvSize() {
       return ivSize;
+    }
+
+    public Transformation getTransformation() {
+      return transformation;
+    }
+
+    @Override
+    public String toString() {
+      return "keyBit=" + keyBit + " ivSize=" + ivSize + " transformation=" + transformation;
     }
   }
 }

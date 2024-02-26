@@ -33,12 +33,20 @@ public final class CryptoFactory {
     if (key.length != 16 && key.length != 24 && key.length != 32) {
       throw new IllegalArgumentException(String.format("key size must be 16 or 32 byte: input %d", key.length));
     }
-    return AesCrypto.builder()
-      .secretKeySpec(new SecretKeySpec(key, transformationType.getCode()))
-      .ivParameterSpec(new IvParameterSpec(iv))
-      .transformation(transformation)
-      .cryptoProvider(cryptoProvider)
-      .build();
+    if (transformation.getTransformationMode() == TransformationMode.ELECTRONIC_CODE_BLOCK) {
+      return AesCrypto.builder()
+        .secretKeySpec(new SecretKeySpec(key, transformationType.getCode()))
+        .transformation(transformation)
+        .cryptoProvider(cryptoProvider)
+        .build();
+    } else {
+      return AesCrypto.builder()
+        .secretKeySpec(new SecretKeySpec(key, transformationType.getCode()))
+        .ivParameterSpec(new IvParameterSpec(iv))
+        .transformation(transformation)
+        .cryptoProvider(cryptoProvider)
+        .build();
+    }
   }
 
   public static Crypto aes(byte[] key, Transformation transformation) {
