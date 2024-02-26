@@ -2,52 +2,35 @@ package com.github.ppzxc.crypto;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
-import org.bouncycastle.util.encoders.Base64;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public final class SymmetricKeyFactory {
 
-  private static final SecureRandom SECURE_RANDOM;
+  public static final String ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   public static final Charset CHARSET = StandardCharsets.UTF_8;
-  public static final String SHA_1_PRNG = "SHA1PRNG";
-  public static final String SUN = "SUN";
-
-  static {
-    try {
-      SECURE_RANDOM = SecureRandom.getInstance(SHA_1_PRNG, SUN);
-    } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-      throw new RuntimeException(e);
-    }
-  }
 
   private SymmetricKeyFactory() {
   }
 
-  public static byte[] generate(int size) {
-    byte[] temp = new byte[size];
-    SECURE_RANDOM.nextBytes(temp);
-    return Base64.encode(temp);
-  }
-
-  public static String generateToString(int size, Charset charset) {
-    return new String(generate(size), charset);
-  }
-
-  public static String generateToString(int size) {
-    return generateToString(size, CHARSET);
+  public static String generate(int size) {
+    if (size != 16 && size != 24 && size != 32) {
+      throw new IllegalArgumentException("require symmetric key size 16, 24, 32");
+    }
+    return IntStream.range(0, size)
+      .mapToObj(ignored -> String.valueOf(ALPHABET.charAt(Constants.SECURE_RANDOM.nextInt(ALPHABET.length()))))
+      .collect(Collectors.joining());
   }
 
   public static SymmetricKey bit128() {
-    return new SymmetricKey(generateToString(16));
+    return new SymmetricKey(generate(16));
   }
 
   public static SymmetricKey bit192() {
-    return new SymmetricKey(generateToString(24));
+    return new SymmetricKey(generate(24));
   }
 
   public static SymmetricKey bit256() {
-    return new SymmetricKey(generateToString(32));
+    return new SymmetricKey(generate(32));
   }
 }
