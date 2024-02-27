@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.ppzxc"
-version = "0.0.10"
+version = "0.0.11"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -101,7 +101,7 @@ publishing {
                 url = "https://github.com/ppzxc/crypto"
                 groupId = "io.github.ppzxc"
                 artifactId = "crypto"
-                version = "1.0.2"
+                version = "0.0.11"
 
                 licenses {
                     license {
