@@ -1,12 +1,3 @@
-object Metadata {
-    const val description = "Encryption/Decryption Wrapper And Provide Simple Usability."
-    const val license = "MIT License"
-    const val licenseUrl = "https://opensource.org/license/mit"
-    const val githubRepo = "ppzxc/crypto"
-    const val release = "https://s01.oss.sonatype.org/service/local/"
-    const val snapshot = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-}
-
 plugins {
     `java-library`
     id("me.champeau.jmh") version "0.7.2"
@@ -14,23 +5,16 @@ plugins {
     signing
 }
 
-group = "io.github.ppzxc"
-version = "v0.0.15"
+group = providers.gradleProperty("GROUP_NAME").get()
+version = providers.gradleProperty("VERSION_NAME").get()
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-val repositories = arrayOf(
-    "https://oss.sonatype.org/content/repositories/snapshots/",
-    "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-)
-
 repositories {
-    mavenLocal()
     mavenCentral()
-    repositories.forEach { maven(it) }
 }
 
 dependencies {
@@ -60,15 +44,12 @@ artifacts {
 }
 
 signing {
-    val signingKey = providers
-        .environmentVariable("GPG_SIGNING_KEY")
-    val signingPassphrase = providers
-        .environmentVariable("GPG_SIGNING_PASSPHRASE")
+    val signingKey = providers.environmentVariable("GPG_SIGNING_KEY")
+    val signingPassphrase = providers.environmentVariable("GPG_SIGNING_PASSPHRASE")
 
     if (signingKey.isPresent && signingPassphrase.isPresent) {
         useInMemoryPgpKeys(signingKey.get(), signingPassphrase.get())
-        val extension = extensions
-            .getByName("publishing") as PublishingExtension
+        val extension = extensions.getByName("publishing") as PublishingExtension
         sign(extension.publications)
     }
 }
@@ -76,38 +57,39 @@ signing {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            groupId = project.group.toString()
-            artifactId = project.name
-            version = project.version.toString()
+            groupId = providers.gradleProperty("GROUP_NAME").get()
+            artifactId = providers.gradleProperty("ARTIFACT_NAME").get()
+            version = providers.gradleProperty("VERSION_NAME").get()
 
             pom {
-                name = project.name
-                description = Metadata.description
-                url = "https://github.com/${Metadata.githubRepo}"
+                name = providers.gradleProperty("ARTIFACT_NAME").get()
+                description = providers.gradleProperty("POM_DESCRIPTION").get()
+                url = providers.gradleProperty("POM_URL").get()
 
                 licenses {
                     license {
-                        name = Metadata.license
-                        url = Metadata.licenseUrl
+                        name = providers.gradleProperty("POM_LICENSE_NAME").get()
+                        url = providers.gradleProperty("POM_LICENSE_URL").get()
                     }
                 }
 
                 developers {
                     developer {
-                        id = "ppzxc"
-                        name = "JeongHa Cho"
-                        email = "cjh8487@naver.com"
+                        id = providers.gradleProperty("POM_DEVELOPER_ID").get()
+                        name = providers.gradleProperty("POM_DEVELOPER_NAME").get()
+                        email = providers.gradleProperty("POM_DEVELOPER_EMAIL").get()
+                        url = providers.gradleProperty("POM_DEVELOPER_URL").get()
                     }
                 }
 
                 scm {
-                    connection = "scm:git:git://github.com/${Metadata.githubRepo}.git"
-                    developerConnection = "scm:git:ssh://github.com/${Metadata.githubRepo}.git"
-                    url = "https://github.com/${Metadata.githubRepo}"
+                    url = providers.gradleProperty("POM_SCM_URL").get()
+                    connection = providers.gradleProperty("POM_SCM_CONNECTION").get()
+                    developerConnection = providers.gradleProperty("POM_SCM_DEV_CONNECTION").get()
                 }
 
                 issueManagement {
-                    url.set("https://github.com/${Metadata.githubRepo}/issues")
+                    url = providers.gradleProperty("POM_ISSUE_MANAGEMENT_URL").get()
                 }
             }
         }
