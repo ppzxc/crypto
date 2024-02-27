@@ -1,8 +1,9 @@
 plugins {
     `java-library`
-    id("me.champeau.jmh") version "0.7.2"
-    id("maven-publish")
+    `maven-publish`
     signing
+    id("me.champeau.jmh") version "0.7.2"
+    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 
 group = providers.gradleProperty("GROUP_NAME").get()
@@ -92,6 +93,15 @@ publishing {
                     url = providers.gradleProperty("POM_ISSUE_MANAGEMENT_URL").get()
                 }
             }
+        }
+    }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
         }
     }
 }
