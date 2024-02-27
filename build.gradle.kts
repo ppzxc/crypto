@@ -99,9 +99,25 @@ publishing {
 
 nexusPublishing {
     repositories {
+//        sonartype()
         sonatype {  //only for users registered in Sonatype after 24 Feb 2021
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            nexusUrl.set(uri("https://central.sonatype.com/service/local/staging/deploy/maven2/"))
+//            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/content/repositories/snapshots/"))
+            username = "0wr4f6mf"
+            password = "8xOqwiPfZREm4uW4x5eY/kJ2jK7YUqyJ5JtMb3qAH2RN"
         }
     }
 }
+
+//publishing {
+//    repositories {
+//        maven {
+//            name = "local"
+//            // change URLs to point to your repos, e.g. http://my.org/repo
+//            releasesRepoUrl = "$buildDir/repos/releases"
+//            snapshotsRepoUrl = "$buildDir/repos/snapshots"
+//            url = version.endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl
+//        }
+//    }
+//}
