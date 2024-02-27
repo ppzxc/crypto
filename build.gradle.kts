@@ -15,7 +15,7 @@ plugins {
 }
 
 group = "io.github.ppzxc"
-version = "v0.0.12"
+version = "v0.0.14"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
