@@ -1,10 +1,11 @@
 plugins {
     java
-    `java-test-fixtures`
     id("me.champeau.jmh") version "0.7.2"
+    id("maven-publish")
+    signing
 }
 
-group = "com.github.ppzxc"
+group = "io.github.ppzxc"
 version = "0.0.10"
 
 java {
@@ -21,9 +22,6 @@ dependencies {
     jmh("org.openjdk.jmh:jmh-generator-annprocess:1.37")
     jmh("org.openjdk.jmh:jmh-generator-bytecode:1.37")
     jmhAnnotationProcessor("org.openjdk.jmh:jmh-generator-annprocess:1.37")
-
-//    jmhImplementation(project(":gateway-common"))
-//    jmhImplementation(project(":gateway-common-crypto"))
 
     implementation("org.bouncycastle:bcprov-jdk18on:1.77")
     testImplementation(platform("org.junit:junit-bom:5.10.2"))
@@ -72,4 +70,60 @@ fun jmh() {
 //    jmhVersion = '1.37' // Specifies JMH version
 //    includeTests = true // Allows to include test sources into generate JMH jar, i.e. use it when benchmarks depend on the test classes.
 //    duplicateClassesStrategy = DuplicatesStrategy.FAIL // Strategy to apply when encountring duplicate classes during creation of the fat jar (i.e. while executing jmhJar task)
+}
+
+tasks {
+    jar {
+
+    }
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+artifacts {
+    archives(tasks.named("javadocJar"))
+    archives(tasks.named("sourcesJar"))
+}
+
+signing {
+    sign(configurations.archives.name)
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            pom {
+                name = "crypto"
+                description = "Encryption/Decryption Wrapper And Provide Simple Usability."
+                url = "https://github.com/ppzxc/crypto"
+                groupId = "io.github.ppzxc"
+                artifactId = "crypto"
+                version = "1.0.2"
+
+                licenses {
+                    license {
+                        name = "MIT License"
+                        url = "https://opensource.org/license/mit"
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = "ppzxc"
+                        name = "JeongHa Cho"
+                        email = "cjh8487@naver.com"
+                    }
+                }
+
+                scm {
+                    connection = "scm:git:git://github.com/ppzxc/crypto.git"
+                    developerConnection = "scm:git:ssh://github.com/ppzxc/crypto.git"
+                    url = "https://github.com/ppzxc/crypto"
+                }
+            }
+        }
+    }
 }
