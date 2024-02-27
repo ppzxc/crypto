@@ -27,11 +27,12 @@ jobs:
         run: ./gradlew build
       - name: GitHub release
         if: success()
-        uses: docker://antonyurchenko/git-release:latest
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ALLOW_TAG_PREFIX: "true"
         with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           args: |
             build/libs/crypto*.jar
       - name: Publish to Maven Central
