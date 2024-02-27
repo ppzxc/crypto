@@ -33,8 +33,6 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          args: |
-            build/libs/crypto*.jar
       - name: Publish to Maven Central
         if: success()
         run: ./gradlew publish closeAndReleaseStagingRepository
