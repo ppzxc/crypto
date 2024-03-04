@@ -1,7 +1,7 @@
 plugins {
     `java-library`
     signing
-    id("net.thebugmc.gradle.sonatype-central-portal-publisher") version "1.1.1"
+    id("net.thebugmc.gradle.sonatype-central-portal-publisher") version "1.2.2"
 }
 
 group = providers.gradleProperty("GROUP_NAME").get()
