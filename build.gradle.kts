@@ -38,17 +38,19 @@ artifacts {
 }
 
 signing {
-    val signingKey = System.getenv("GPG_SIGNING_KEY") as String
-    val signingPassphrase = System.getenv("GPG_SIGNING_PASSPHRASE") as String
+    val signingKey = providers.environmentVariable("GPG_SIGNING_KEY")
+    val signingPassphrase = providers.environmentVariable("GPG_SIGNING_PASSPHRASE")
 
-    useInMemoryPgpKeys(signingKey, signingPassphrase)
-    val extension = extensions.getByName("publishing") as PublishingExtension
-    sign(extension.publications)
+    if (signingKey.isPresent && signingPassphrase.isPresent) {
+        useInMemoryPgpKeys(signingKey.get(), signingPassphrase.get())
+        val extension = extensions.getByName("publishing") as PublishingExtension
+        sign(extension.publications)
+    }
 }
 
 centralPortal {
-    username = System.getenv("OSSRH_USERNAME") as String
-    password = System.getenv("OSSRH_PASSWORD") as String
+    username = providers.environmentVariable("OSSRH_USERNAME").getOrElse("null")
+    password = providers.environmentVariable("OSSRH_PASSWORD").getOrElse("null")
     pom {
         group = providers.gradleProperty("GROUP_NAME").get()
         name = providers.gradleProperty("ARTIFACT_NAME").get()
