@@ -100,4 +100,16 @@ class AsymmetricKeyFactoryTest {
     assertThat(actual.getPrivate().getFormat()).isEqualTo(expected.getPrivate().getFormat());
     assertThat(actual.getPrivate().getEncoded()).isEqualTo(expected.getPrivate().getEncoded());
   }
+
+  @Test
+  void should_created_when_given_asymmetric_key_type() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
+    // given, when
+    AsymmetricKey actual = AsymmetricKeyFactory.generate(AsymmetricKeyType.RSA);
+
+    // then
+    assertThat(actual).isNotNull();
+    assertThat(actual.getAsymmetricKeyType()).isEqualByComparingTo(AsymmetricKeyType.RSA);
+    assertThat(actual.getPublicKey()).isNotBlank();
+    assertThat(actual.getPrivateKey()).isNotBlank();
+  }
 }
