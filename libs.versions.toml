@@ -1,0 +1,13 @@
+[versions]
+org-bouncycastle-bcprov-jdk18on = "1.77"
+org-junit-jupiter = "5.10.2"
+org-assertj-core = "3.25.3"
+net-thebugmc-gradle-sonatype-central-portal-publisher = "1.2.2"
+
+[libraries]
+org-bouncycastle-bcprov-jdk18on = { group = "org.bouncycastle", name = "bcprov-jdk18on", version.ref = "org-bouncycastle-bcprov-jdk18on" }
+org-junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "org-junit-jupiter" }
+org-assertj-core = { group = "org.assertj", name = "assertj-core", version.ref = "org-assertj-core" }
+
+[plugins]
+net-thebugmc-gradle-sonatype-central-portal-publisher = { id = "net.thebugmc.gradle.sonatype-central-portal-publisher", version.ref = "net-thebugmc-gradle-sonatype-central-portal-publisher" }
