@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     signing
+    jacoco
     alias(libs.plugins.net.thebugmc.gradle.sonatype.central.portal.publisher)
 }
 
@@ -20,10 +21,38 @@ dependencies {
     implementation(rootProject.libs.org.bouncycastle.bcprov.jdk18on)
     testImplementation(rootProject.libs.org.junit.jupiter)
     testImplementation(rootProject.libs.org.assertj.core)
+    testImplementation(rootProject.libs.io.github.ppzxc.fixh)
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required = true
+//        xml.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+        csv.required = true
+//        csv.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+        html.required = true
+//        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+    }
+    finalizedBy(tasks.jacocoTestCoverageVerification)
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = "CLASS"
+
+            limit {
+                counter = "BRANCH"
+                value = "COVEREDRATIO"
+                minimum = BigDecimal.valueOf(0.75)
+            }
+        }
+    }
 }
 
 java {

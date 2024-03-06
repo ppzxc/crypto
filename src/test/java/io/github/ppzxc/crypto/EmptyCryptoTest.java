@@ -2,6 +2,8 @@ package io.github.ppzxc.crypto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.github.ppzxc.fixh.ByteArrayUtils;
+import io.github.ppzxc.fixh.RandomUtils;
 import org.junit.jupiter.api.Test;
 
 class EmptyCryptoTest {
@@ -12,7 +14,7 @@ class EmptyCryptoTest {
     Crypto crypto = EmptyCrypto.create();
 
     // when
-    byte[] actual = crypto.encrypt(RandomBytes.giveMeOne());
+    byte[] actual = crypto.encrypt(ByteArrayUtils.giveMeOne());
 
     // then
     assertThat(actual).isEmpty();
@@ -24,7 +26,7 @@ class EmptyCryptoTest {
     Crypto crypto = EmptyCrypto.create();
 
     // when
-    byte[] actual = crypto.encrypt(RandomString.giveMeOne());
+    byte[] actual = crypto.encrypt(RandomUtils.getInstance().string());
 
     // then
     assertThat(actual).isEmpty();
@@ -36,7 +38,7 @@ class EmptyCryptoTest {
     Crypto crypto = EmptyCrypto.create();
 
     // when
-    String actual = crypto.encryptToString(RandomBytes.giveMeOne());
+    String actual = crypto.encryptToString(ByteArrayUtils.giveMeOne());
 
     // then
     assertThat(actual).isNull();
@@ -48,7 +50,7 @@ class EmptyCryptoTest {
     Crypto crypto = EmptyCrypto.create();
 
     // when
-    String actual = crypto.encryptToString(RandomString.giveMeOne());
+    String actual = crypto.encryptToString(RandomUtils.getInstance().string());
 
     // then
     assertThat(actual).isNull();
@@ -60,7 +62,7 @@ class EmptyCryptoTest {
     Crypto crypto = EmptyCrypto.create();
 
     // when
-    byte[] actual = crypto.decrypt(RandomBytes.giveMeOne());
+    byte[] actual = crypto.decrypt(ByteArrayUtils.giveMeOne());
 
     // then
     assertThat(actual).isEmpty();
@@ -72,7 +74,7 @@ class EmptyCryptoTest {
     Crypto crypto = EmptyCrypto.create();
 
     // when
-    byte[] actual = crypto.decrypt(RandomString.giveMeOne());
+    byte[] actual = crypto.decrypt(RandomUtils.getInstance().string());
 
     // then
     assertThat(actual).isEmpty();

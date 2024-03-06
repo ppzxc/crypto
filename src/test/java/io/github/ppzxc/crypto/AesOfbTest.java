@@ -2,6 +2,8 @@ package io.github.ppzxc.crypto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.github.ppzxc.fixh.ByteArrayUtils;
+import io.github.ppzxc.fixh.RandomUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -16,9 +18,9 @@ class AesOfbTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_ofb_1(AesArgument aesArgument) throws CryptoException {
     // given
-    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+    Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    byte[] expected = RandomBytes.giveMeOne();
+    byte[] expected = ByteArrayUtils.giveMeOne();
 
     // when
     byte[] cipherText = given.encrypt(expected);
@@ -32,9 +34,9 @@ class AesOfbTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_ofb_2(AesArgument aesArgument) throws CryptoException {
     // given
-    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+    Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    byte[] expected = RandomBytes.giveMeOne();
+    byte[] expected = ByteArrayUtils.giveMeOne();
 
     // when
     String cipherText = given.encryptToString(expected);
@@ -48,9 +50,9 @@ class AesOfbTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_ofb_3(AesArgument aesArgument) throws CryptoException {
     // given
-    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+    Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    byte[] expected = RandomBytes.giveMeOne();
+    byte[] expected = ByteArrayUtils.giveMeOne();
 
     // when
     String cipherText = given.encryptToString(expected);
@@ -64,9 +66,9 @@ class AesOfbTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_ofb_4(AesArgument aesArgument) throws CryptoException {
     // given
-    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+    Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    byte[] expected = RandomBytes.giveMeOneWithUtf8();
+    byte[] expected = ByteArrayUtils.giveMeOneWithUtf8();
 
     // when
     String cipherText = given.encryptToString(expected);
@@ -80,9 +82,9 @@ class AesOfbTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_ofb_5(AesArgument aesArgument) throws CryptoException {
     // given
-    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+    Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     // when
     byte[] cipherText = given.encrypt(expected);
@@ -96,9 +98,9 @@ class AesOfbTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_ofb_6(AesArgument aesArgument) throws CryptoException {
     // given
-    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+    Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     // when
     byte[] cipherText = given.encrypt(expected.getBytes(StandardCharsets.UTF_8));
@@ -112,9 +114,9 @@ class AesOfbTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_ofb_7(AesArgument aesArgument) throws CryptoException {
     // given
-    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+    Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     // when
     String cipherText = given.encryptToString(expected);
@@ -128,9 +130,9 @@ class AesOfbTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_ofb_8(AesArgument aesArgument) throws CryptoException {
     // given
-    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+    Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     // when
     String cipherText = given.encryptToString(expected);
@@ -144,9 +146,9 @@ class AesOfbTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_ofb_9(AesArgument aesArgument) throws CryptoException {
     // given
-    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+    Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     // when
     String cipherText = given.encryptToString(expected);
@@ -160,9 +162,9 @@ class AesOfbTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_ofb_10(AesArgument aesArgument) throws CryptoException {
     // given
-    Crypto given = CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+    Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     // when
     String cipherText = given.encryptToString(expected);
@@ -176,8 +178,8 @@ class AesOfbTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_ofb_11(AesArgument aesArgument) throws CryptoException {
     for (int i = 0; i <= 256; i++) {
-      CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-        aesArgument.provider, RandomBytes.giveMeOne(i));
+      CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+        aesArgument.provider, ByteArrayUtils.giveMeOne(i));
     }
   }
 
