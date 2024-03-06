@@ -3,6 +3,7 @@ package io.github.ppzxc.crypto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import io.github.ppzxc.fixh.RandomUtils;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +33,7 @@ class SymmetricKeyTest {
   @Test
   void should_return_key_when_input_key() {
     // given
-    String expected = RandomString.giveMeOne();
+    String expected = RandomUtils.getInstance().string();
 
     // when
     SymmetricKey actual = new SymmetricKey(expected);
@@ -44,7 +45,7 @@ class SymmetricKeyTest {
   @Test
   void should_return_key_when_input_key_bytes() {
     // given
-    String expected = RandomString.giveMeOne();
+    String expected = RandomUtils.getInstance().string();
 
     // when
     SymmetricKey actual = new SymmetricKey(expected);

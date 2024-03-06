@@ -2,7 +2,6 @@ package io.github.ppzxc.crypto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.github.ppzxc.crypto.SymmetricKeyFactory;
 import java.security.NoSuchAlgorithmException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

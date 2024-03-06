@@ -3,20 +3,14 @@ package io.github.ppzxc.crypto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import io.github.ppzxc.crypto.Crypto;
-import io.github.ppzxc.crypto.CryptoException;
-import io.github.ppzxc.crypto.CryptoFactory;
-import io.github.ppzxc.crypto.CryptoProvider;
-import io.github.ppzxc.crypto.RandomBytes;
-import io.github.ppzxc.crypto.RandomString;
-import io.github.ppzxc.crypto.Transformation;
+import io.github.ppzxc.fixh.ByteArrayUtils;
+import io.github.ppzxc.fixh.RandomUtils;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -30,7 +24,7 @@ class AesRandomIvTest {
   void should_encryption_and_decryption_when_16_byte_iv_1(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = create(aesArgument);
-    byte[] expected = RandomBytes.giveMeOne();
+    byte[] expected = ByteArrayUtils.giveMeOne();
 
     if (aesArgument.ivSize == 16) {
       // when
@@ -51,7 +45,7 @@ class AesRandomIvTest {
   void should_encryption_and_decryption_when_16_byte_iv_2(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = create(aesArgument);
-    byte[] expected = RandomBytes.giveMeOne();
+    byte[] expected = ByteArrayUtils.giveMeOne();
 
     if (aesArgument.ivSize == 16) {
       // when
@@ -72,7 +66,7 @@ class AesRandomIvTest {
   void should_encryption_and_decryption_when_16_byte_iv_3(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = create(aesArgument);
-    byte[] expected = RandomBytes.giveMeOne();
+    byte[] expected = ByteArrayUtils.giveMeOne();
 
     if (aesArgument.ivSize == 16) {
       // when
@@ -93,7 +87,7 @@ class AesRandomIvTest {
   void should_encryption_and_decryption_when_16_byte_iv_4(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = create(aesArgument);
-    byte[] expected = RandomBytes.giveMeOneWithUtf8();
+    byte[] expected = ByteArrayUtils.giveMeOneWithUtf8();
 
     if (aesArgument.ivSize == 16) {
       // when
@@ -114,7 +108,7 @@ class AesRandomIvTest {
   void should_encryption_and_decryption_when_16_byte_iv_5(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = create(aesArgument);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     if (aesArgument.ivSize == 16) {
       // when
@@ -135,7 +129,7 @@ class AesRandomIvTest {
   void should_encryption_and_decryption_when_16_byte_iv_6(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = create(aesArgument);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     if (aesArgument.ivSize == 16) {
       // when
@@ -156,7 +150,7 @@ class AesRandomIvTest {
   void should_encryption_and_decryption_when_16_byte_iv_7(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = create(aesArgument);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     if (aesArgument.ivSize == 16) {
       // when
@@ -177,7 +171,7 @@ class AesRandomIvTest {
   void should_encryption_and_decryption_when_16_byte_iv_8(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = create(aesArgument);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     if (aesArgument.ivSize == 16) {
       // when
@@ -198,7 +192,7 @@ class AesRandomIvTest {
   void should_encryption_and_decryption_when_16_byte_iv_9(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = create(aesArgument);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     if (aesArgument.ivSize == 16) {
       // when
@@ -219,7 +213,7 @@ class AesRandomIvTest {
   void should_encryption_and_decryption_when_16_byte_iv_10(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = create(aesArgument);
-    String expected = RandomString.giveMeOne(512);
+    String expected = RandomUtils.getInstance().string(512);
 
     if (aesArgument.ivSize == 16) {
       // when
@@ -236,8 +230,8 @@ class AesRandomIvTest {
   }
 
   private Crypto create(AesArgument aesArgument) {
-    return CryptoFactory.aes(RandomBytes.giveMeOne(aesArgument.keyBit), aesArgument.transformation,
-      CryptoProvider.BOUNCY_CASTLE, RandomBytes.giveMeOne(aesArgument.ivSize));
+    return CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyBit), aesArgument.transformation,
+      CryptoProvider.BOUNCY_CASTLE, ByteArrayUtils.giveMeOne(aesArgument.ivSize));
   }
 
   static class AllArgumentsProvider implements ArgumentsProvider {
