@@ -2,6 +2,7 @@ package io.github.ppzxc.crypto;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Security;
@@ -188,5 +189,15 @@ public final class CryptoFactory {
       .publicKey(publicKey)
       .privateKey(privateKey)
       .build();
+  }
+
+  /**
+   * Rsa crypto.
+   *
+   * @param keyPair the key pair
+   * @return the crypto
+   */
+  public static Crypto rsa(KeyPair keyPair) {
+    return rsa(keyPair.getPublic(), keyPair.getPrivate());
   }
 }

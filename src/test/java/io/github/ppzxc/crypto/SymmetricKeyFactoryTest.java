@@ -1,6 +1,7 @@
 package io.github.ppzxc.crypto;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 import java.security.NoSuchAlgorithmException;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class SymmetricKeyFactoryTest {
+
+  @Test
+  void should_throw_exception_when_invalid_key_size() {
+    assertThatCode(() -> SymmetricKeyFactory.generate(10)).isInstanceOf(IllegalArgumentException.class);
+  }
 
   @ParameterizedTest
   @ValueSource(ints = {16, 24, 32})

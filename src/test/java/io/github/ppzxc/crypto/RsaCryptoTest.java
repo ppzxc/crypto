@@ -26,6 +26,15 @@ class RsaCryptoTest {
   }
 
   @Test
+  void should_throw_exception_when_invalid_byte_array() {
+    // given
+    byte[] plainText = null;
+
+    // when, then
+    assertThatCode(() -> crypto.encrypt(plainText)).isInstanceOf(CryptoException.class);
+  }
+
+  @Test
   void should_encrypt_byte_array_to_byte_array() throws CryptoException {
     // given
     byte[] plainText = ByteArrayUtils.giveMeOne(245);
@@ -47,6 +56,11 @@ class RsaCryptoTest {
 
     // then
     assertThat(cipherText).isNotEqualTo(plainText.getBytes(StandardCharsets.UTF_8));
+  }
+
+  @Test
+  void should_throw_exception_when_invalid_cipher_text() {
+    assertThatCode(() -> crypto.decrypt(ByteArrayUtils.giveMeOne(1))).isInstanceOf(CryptoException.class);
   }
 
   @Test
@@ -158,5 +172,27 @@ class RsaCryptoTest {
       .charset(StandardCharsets.UTF_8)
       .build())
       .doesNotThrowAnyException();
+  }
+
+  @Test
+  void should_throw_exception_when_not_null_public_key() {
+    assertThatCode(() -> RsaCrypto.builder()
+      .transformation(Transformation.RSA)
+      .cryptoProvider(CryptoProvider.BOUNCY_CASTLE)
+      .charset(StandardCharsets.UTF_8)
+      .publicKey(null)
+      .build())
+      .isInstanceOf(NullPointerException.class);
+  }
+
+  @Test
+  void should_throw_exception_when_not_null_private_key() {
+    assertThatCode(() -> RsaCrypto.builder()
+      .transformation(Transformation.RSA)
+      .cryptoProvider(CryptoProvider.BOUNCY_CASTLE)
+      .charset(StandardCharsets.UTF_8)
+      .privateKey(null)
+      .build())
+      .isInstanceOf(NullPointerException.class);
   }
 }

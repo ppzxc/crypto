@@ -2,6 +2,7 @@ package io.github.ppzxc.crypto;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
+import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 
 class AesCryptoTest {
@@ -39,5 +40,12 @@ class AesCryptoTest {
     assertThatCode(() -> AesCrypto.builder()
       .charset(null)
       .build()).isInstanceOf(NullPointerException.class);
+  }
+
+  @Test
+  void should_throw_exception_6() {
+    assertThatCode(() -> AesCrypto.builder()
+      .charset(StandardCharsets.UTF_8)
+      .build()).doesNotThrowAnyException();
   }
 }

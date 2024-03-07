@@ -1,11 +1,13 @@
 package io.github.ppzxc.crypto;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 import io.github.ppzxc.fixh.ByteArrayUtils;
 import io.github.ppzxc.fixh.RandomUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -181,6 +183,11 @@ class AesCbcTest {
       CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
         aesArgument.provider, ByteArrayUtils.giveMeOne(i));
     }
+  }
+
+  @Test
+  void should_throw_exception_when_decrypt() {
+    assertThatCode(() -> CryptoFactory.aes256().decrypt(new byte[]{'a'})).isInstanceOf(CryptoException.class);
   }
 
   static class AesArgumentsProvider implements ArgumentsProvider {
