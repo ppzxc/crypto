@@ -97,8 +97,8 @@ public enum Transformation {
   public static Transformation of(String type, String mode, String pkcs) {
     return Arrays.stream(Transformation.values())
       .filter(tran -> tran.transformationType.getCode().equalsIgnoreCase(type))
-      .filter(tran -> tran.transformationMode == null || tran.transformationMode.getCode().equalsIgnoreCase(mode))
-      .filter(tran -> tran.transformationPkcs == null || tran.transformationPkcs.getCode().equalsIgnoreCase(pkcs))
+      .filter(tran -> tran.transformationMode.getCode().equalsIgnoreCase(mode))
+      .filter(tran -> tran.transformationPkcs.getCode().equalsIgnoreCase(pkcs))
       .findAny()
       .orElseThrow(() -> new IllegalArgumentException(
         String.format("type=%s mode=%s pkcs=%s not supported transformation", type, mode, pkcs)));

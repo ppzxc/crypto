@@ -34,9 +34,21 @@ class TransformationTest {
   }
 
   @Test
-  void should_return_default() {
+  void should_return_default_1() {
     Transformation given = Transformation.of("AES", "CBC", "PKCS7Padding");
     assertThat(given.getCode()).isEqualTo(Transformation.AES_CBC_PKCS7PADDING.getCode());
+  }
+
+  @Test
+  void should_return_default_2() {
+    assertThatCode(() -> Transformation.of("AES", null, null))
+      .isInstanceOf(IllegalArgumentException.class);
+  }
+
+  @Test
+  void should_return_default_3() {
+    assertThatCode(() -> Transformation.of("AES", "CBC", null))
+      .isInstanceOf(IllegalArgumentException.class);
   }
 
   @Test
