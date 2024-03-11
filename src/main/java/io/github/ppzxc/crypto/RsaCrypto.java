@@ -76,7 +76,7 @@ public final class RsaCrypto implements Crypto {
 
   @Override
   public String decryptToString(String cipherText) throws CryptoException {
-    return new String(cipherText.getBytes(charset), charset);
+    return new String(decrypt(cipherText.getBytes(charset)), charset);
   }
 
   /**
