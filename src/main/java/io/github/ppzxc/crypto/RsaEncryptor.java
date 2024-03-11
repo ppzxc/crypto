@@ -51,22 +51,22 @@ public final class RsaEncryptor implements Crypto {
 
   @Override
   public byte[] decrypt(byte[] cipherText) throws CryptoException {
-    throw new CryptoException("not supported decrypt");
+    throw CryptoException.notSupportedDecrypt();
   }
 
   @Override
   public byte[] decrypt(String cipherText) throws CryptoException {
-    throw new CryptoException("not supported decrypt");
+    throw CryptoException.notSupportedDecrypt();
   }
 
   @Override
   public String decryptToString(byte[] cipherText) throws CryptoException {
-    throw new CryptoException("not supported decrypt");
+    throw CryptoException.notSupportedDecrypt();
   }
 
   @Override
   public String decryptToString(String cipherText) throws CryptoException {
-    throw new CryptoException("not supported decrypt");
+    throw CryptoException.notSupportedDecrypt();
   }
 
   /**

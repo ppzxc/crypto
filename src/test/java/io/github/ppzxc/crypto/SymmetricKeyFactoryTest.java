@@ -3,12 +3,17 @@ package io.github.ppzxc.crypto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import java.security.NoSuchAlgorithmException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class SymmetricKeyFactoryTest {
+
+  @BeforeAll
+  static void beforeAll() throws CryptoException {
+    CryptoProvider.BOUNCY_CASTLE.addProvider();
+  }
 
   @Test
   void should_throw_exception_when_invalid_key_size() {
@@ -17,7 +22,7 @@ class SymmetricKeyFactoryTest {
 
   @ParameterizedTest
   @ValueSource(ints = {16, 24, 32})
-  void should_create_symmetric_key(int size) throws NoSuchAlgorithmException {
+  void should_create_symmetric_key(int size) {
     // given
     String given = SymmetricKeyFactory.generate(size);
 

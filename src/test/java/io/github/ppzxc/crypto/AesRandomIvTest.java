@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,6 +19,11 @@ import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
 class AesRandomIvTest {
+
+  @BeforeAll
+  static void beforeAll() throws CryptoException {
+    CryptoProvider.BOUNCY_CASTLE.addProvider();
+  }
 
   @ParameterizedTest
   @ArgumentsSource(value = AllArgumentsProvider.class)
@@ -237,7 +243,7 @@ class AesRandomIvTest {
   static class AllArgumentsProvider implements ArgumentsProvider {
 
     @Override
-    public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) throws Exception {
+    public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) {
       return Stream.of(
         IntStream.rangeClosed(16, 24)
           .mapToObj(ivSize -> new AesArgument(16, ivSize, Transformation.AES_CBC_PKCS5PADDING))

@@ -6,12 +6,18 @@ import java.io.IOException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class AsymmetricKeyFactoryTest {
 
+  @BeforeAll
+  static void beforeAll() throws CryptoException {
+    CryptoProvider.BOUNCY_CASTLE.addProvider();
+  }
+
   @Test
-  void should_created_key_pair() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
+  void should_created_key_pair() throws NoSuchAlgorithmException, NoSuchProviderException {
     // given
 
     // when
@@ -44,7 +50,8 @@ class AsymmetricKeyFactoryTest {
   }
 
   @Test
-  void should_transform_key_pair_form_string() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
+  void should_transform_key_pair_form_string()
+    throws NoSuchAlgorithmException, IOException, NoSuchProviderException, CryptoException {
     // given
     KeyPair expected = AsymmetricKeyFactory.generateRsa();
     AsymmetricKey given = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKeyType.RSA, expected);
@@ -62,7 +69,8 @@ class AsymmetricKeyFactoryTest {
   }
 
   @Test
-  void should_created_1024_bit_key() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
+  void should_created_1024_bit_key()
+    throws NoSuchAlgorithmException, IOException, NoSuchProviderException, CryptoException {
     // given
     KeyPair expected = AsymmetricKeyFactory.generateRsa(1024);
     AsymmetricKey given = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKeyType.RSA, expected);
@@ -80,7 +88,8 @@ class AsymmetricKeyFactoryTest {
   }
 
   @Test
-  void should_created_2048_bit_key() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
+  void should_created_2048_bit_key()
+    throws NoSuchAlgorithmException, IOException, NoSuchProviderException, CryptoException {
     // given
     KeyPair expected = AsymmetricKeyFactory.generateRsa(2048);
     AsymmetricKey given = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKeyType.RSA, expected);
