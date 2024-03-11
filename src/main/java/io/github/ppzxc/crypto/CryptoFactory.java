@@ -58,11 +58,11 @@ public final class CryptoFactory {
   /**
    * Aes crypto.
    *
-   * @param key                the key
+   * @param key the key
    * @param transformationType the transformation type
-   * @param transformation     the transformation
-   * @param cryptoProvider     the crypto provider
-   * @param iv                 the iv
+   * @param transformation the transformation
+   * @param cryptoProvider the crypto provider
+   * @param iv the iv
    * @return the crypto
    */
   public static Crypto aes(byte[] key, TransformationType transformationType, Transformation transformation,
@@ -90,7 +90,7 @@ public final class CryptoFactory {
   /**
    * Aes crypto.
    *
-   * @param key            the key
+   * @param key the key
    * @param transformation the transformation
    * @return the crypto
    */
@@ -102,7 +102,7 @@ public final class CryptoFactory {
   /**
    * Aes crypto.
    *
-   * @param key            the key
+   * @param key the key
    * @param transformation the transformation
    * @param cryptoProvider the crypto provider
    * @return the crypto
@@ -115,10 +115,10 @@ public final class CryptoFactory {
   /**
    * Aes crypto.
    *
-   * @param key            the key
+   * @param key the key
    * @param transformation the transformation
    * @param cryptoProvider the crypto provider
-   * @param iv             the iv
+   * @param iv the iv
    * @return the crypto
    */
   public static Crypto aes(byte[] key, Transformation transformation, CryptoProvider cryptoProvider, byte[] iv) {
@@ -180,7 +180,7 @@ public final class CryptoFactory {
   /**
    * Rsa crypto.
    *
-   * @param publicKey  the public key
+   * @param publicKey the public key
    * @param privateKey the private key
    * @return the crypto
    */
@@ -188,6 +188,18 @@ public final class CryptoFactory {
     return RsaCrypto.builder()
       .publicKey(publicKey)
       .privateKey(privateKey)
+      .build();
+  }
+
+  /**
+   * Rsa crypto.
+   *
+   * @param publicKey the public key
+   * @return the crypto
+   */
+  public static Crypto rsa(PublicKey publicKey) {
+    return RsaEncryptor.builder()
+      .publicKey(publicKey)
       .build();
   }
 

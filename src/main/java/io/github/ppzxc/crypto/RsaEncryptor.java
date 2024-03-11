@@ -2,29 +2,25 @@ package io.github.ppzxc.crypto;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.security.PrivateKey;
 import java.security.PublicKey;
 import javax.crypto.Cipher;
 import org.bouncycastle.util.encoders.Base64;
 
 /**
- * The type Rsa crypto.
+ * The type Rsa encryptor.
  */
-public final class RsaCrypto implements Crypto {
+public final class RsaEncryptor implements Crypto {
 
   private final Transformation transformation;
   private final CryptoProvider cryptoProvider;
   private final Charset charset;
   private final PublicKey publicKey;
-  private final PrivateKey privateKey;
 
-  private RsaCrypto(Transformation transformation, CryptoProvider cryptoProvider, Charset charset, PublicKey publicKey,
-    PrivateKey privateKey) {
+  private RsaEncryptor(Transformation transformation, CryptoProvider cryptoProvider, Charset charset, PublicKey publicKey) {
     this.transformation = transformation;
     this.cryptoProvider = cryptoProvider;
     this.charset = charset;
     this.publicKey = publicKey;
-    this.privateKey = privateKey;
   }
 
   @Override
@@ -55,28 +51,22 @@ public final class RsaCrypto implements Crypto {
 
   @Override
   public byte[] decrypt(byte[] cipherText) throws CryptoException {
-    try {
-      Cipher cipher = Cipher.getInstance(transformation.getCode(), cryptoProvider.getCode());
-      cipher.init(Cipher.DECRYPT_MODE, privateKey);
-      return cipher.doFinal(Base64.decode(cipherText));
-    } catch (Exception e) {
-      throw new CryptoException(e);
-    }
+    throw new CryptoException("not supported decrypt");
   }
 
   @Override
   public byte[] decrypt(String cipherText) throws CryptoException {
-    return decrypt(cipherText.getBytes(charset));
+    throw new CryptoException("not supported decrypt");
   }
 
   @Override
   public String decryptToString(byte[] cipherText) throws CryptoException {
-    return new String(decrypt(cipherText), charset);
+    throw new CryptoException("not supported decrypt");
   }
 
   @Override
   public String decryptToString(String cipherText) throws CryptoException {
-    return new String(decrypt(cipherText.getBytes(charset)), charset);
+    throw new CryptoException("not supported decrypt");
   }
 
   /**
@@ -97,7 +87,6 @@ public final class RsaCrypto implements Crypto {
     private CryptoProvider cryptoProvider = CryptoProvider.BOUNCY_CASTLE;
     private Charset charset = StandardCharsets.UTF_8;
     private PublicKey publicKey;
-    private PrivateKey privateKey;
 
     /**
      * Instantiates a new Builder.
@@ -166,27 +155,12 @@ public final class RsaCrypto implements Crypto {
     }
 
     /**
-     * Private key builder.
+     * Build rsa encryptor.
      *
-     * @param privateKey the private key
-     * @return the builder
+     * @return the rsa encryptor
      */
-    public Builder privateKey(PrivateKey privateKey) {
-      if (privateKey == null) {
-        throw new NullPointerException("privateKey is marked non-null but is null");
-      } else {
-        this.privateKey = privateKey;
-        return this;
-      }
-    }
-
-    /**
-     * Build rsa crypto.
-     *
-     * @return the rsa crypto
-     */
-    public RsaCrypto build() {
-      return new RsaCrypto(transformation, cryptoProvider, charset, publicKey, privateKey);
+    public RsaEncryptor build() {
+      return new RsaEncryptor(transformation, cryptoProvider, charset, publicKey);
     }
   }
 }
