@@ -1,8 +1,8 @@
-[![Release](https://github.com/ppzxc/crypto/actions/workflows/release.yml/badge.svg)](https://github.com/ppzxc/crypto/actions/workflows/release.yml)
+[![Release](https://github.com/ppzxc/crypto/actions/workflows/release.yml/badge.svg)](https://github.com/ppzxc/crypto/actions/workflows/release.yml) [![Coverage](.github/badges/jacoco.svg)](https://github.com/ppzxc/crypto/actions/workflows/main.yml)
 
 # crypto adapter
 
-- Encryption/Decryption Wrapper. 
+- Encryption/Decryption Wrapper.
 - Provide Simple Usability.
 
 # feature
