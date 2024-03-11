@@ -5,10 +5,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.Security;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  * The type Crypto factory.
@@ -46,11 +44,7 @@ public final class CryptoFactory {
   /**
    * The constant DEFAULT_AES_IV_PARAMETER_BYTES.
    */
-  public static final byte[] DEFAULT_AES_IV_PARAMETER_BYTES = DEFAULT_AES_IV_PARAMETER.getBytes(CHARSET);
-
-  static {
-    Security.addProvider(new BouncyCastleProvider());
-  }
+  private static final byte[] DEFAULT_AES_IV_PARAMETER_BYTES = DEFAULT_AES_IV_PARAMETER.getBytes(CHARSET);
 
   private CryptoFactory() {
   }
@@ -66,8 +60,7 @@ public final class CryptoFactory {
    * @return the crypto
    */
   public static Crypto aes(byte[] key, TransformationType transformationType, Transformation transformation,
-    CryptoProvider cryptoProvider,
-    byte[] iv) {
+    CryptoProvider cryptoProvider, byte[] iv) {
     if (key.length != 16 && key.length != 24 && key.length != 32) {
       throw new IllegalArgumentException(String.format("key size must be 16 or 32 byte: input %d", key.length));
     }

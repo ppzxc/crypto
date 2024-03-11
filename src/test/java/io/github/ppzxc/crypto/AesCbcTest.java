@@ -7,6 +7,7 @@ import io.github.ppzxc.fixh.ByteArrayUtils;
 import io.github.ppzxc.fixh.RandomUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,6 +16,11 @@ import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
 class AesCbcTest {
+
+  @BeforeAll
+  static void beforeAll() throws CryptoException {
+    CryptoProvider.BOUNCY_CASTLE.addProvider();
+  }
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
@@ -180,8 +186,9 @@ class AesCbcTest {
   @ArgumentsSource(value = AesArgumentsProvider.class)
   void should_encryption_and_decryption_when_use_aes_cbc_11(AesArgument aesArgument) {
     for (int i = 0; i <= 256; i++) {
-      CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-        aesArgument.provider, ByteArrayUtils.giveMeOne(i));
+      int finalI = i;
+      assertThatCode(() -> CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+        aesArgument.provider, ByteArrayUtils.giveMeOne(finalI))).doesNotThrowAnyException();
     }
   }
 
@@ -193,7 +200,7 @@ class AesCbcTest {
   static class AesArgumentsProvider implements ArgumentsProvider {
 
     @Override
-    public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) throws Exception {
+    public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) {
       return Stream.of(new AesArgument(16, Transformation.AES_CBC_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
           new AesArgument(24, Transformation.AES_CBC_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
           new AesArgument(32, Transformation.AES_CBC_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),

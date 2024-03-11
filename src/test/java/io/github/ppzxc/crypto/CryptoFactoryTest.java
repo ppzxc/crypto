@@ -5,47 +5,70 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import io.github.ppzxc.fixh.ByteArrayUtils;
 import io.github.ppzxc.fixh.RandomUtils;
 import java.nio.charset.StandardCharsets;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class CryptoFactoryTest {
 
+  @BeforeAll
+  static void beforeAll() throws CryptoException {
+    CryptoProvider.BOUNCY_CASTLE.addProvider();
+  }
+
   @Test
   void should_throw_exception_invalid_key_size() {
     // given
-    assertThatCode(
-      () -> CryptoFactory.aes(RandomUtils.getInstance().string(10).getBytes(StandardCharsets.UTF_8), null, null, null,
-        null)).isInstanceOf(IllegalArgumentException.class);
+    byte[] key = RandomUtils.getInstance().string(10).getBytes(StandardCharsets.UTF_8);
+    TransformationType transformationType = null;
+    Transformation transformation = null;
+    CryptoProvider cryptoProvider = null;
+
+    // when, then
+    assertThatCode(() -> CryptoFactory.aes(key, transformationType, transformation, cryptoProvider,null))
+      .isInstanceOf(IllegalArgumentException.class);
   }
 
   @Test
   void should_return_crypto_1() {
-    assertThatCode(() -> CryptoFactory.aes(ByteArrayUtils.giveMeOne(16), Transformation.AES_CBC_PKCS7PADDING))
-      .doesNotThrowAnyException();
+    // given
+    byte[] key = ByteArrayUtils.giveMeOne(16);
+    Transformation transformation = Transformation.AES_CBC_PKCS7PADDING;
+
+    // when, then
+    assertThatCode(() -> CryptoFactory.aes(key, transformation)).doesNotThrowAnyException();
   }
 
   @Test
   void should_return_crypto_2() {
-    assertThatCode(() -> CryptoFactory.aes(ByteArrayUtils.giveMeOne(16))).doesNotThrowAnyException();
+    // given
+    byte[] key = ByteArrayUtils.giveMeOne(16);
+
+    // when, then
+    assertThatCode(() -> CryptoFactory.aes(key)).doesNotThrowAnyException();
   }
 
   @Test
   void should_return_crypto_3() {
-    assertThatCode(() -> CryptoFactory.aes(RandomUtils.getInstance().string(16))).doesNotThrowAnyException();
+    // given
+    String key = RandomUtils.getInstance().string(16);
+
+    // when, then
+    assertThatCode(() -> CryptoFactory.aes(key)).doesNotThrowAnyException();
   }
 
   @Test
   void should_return_crypto_4() {
-    assertThatCode(() -> CryptoFactory.aes128()).doesNotThrowAnyException();
+    assertThatCode(CryptoFactory::aes128).doesNotThrowAnyException();
   }
 
   @Test
   void should_return_crypto_5() {
-    assertThatCode(() -> CryptoFactory.aes192()).doesNotThrowAnyException();
+    assertThatCode(CryptoFactory::aes192).doesNotThrowAnyException();
   }
 
   @Test
   void should_return_crypto_6() {
-    assertThatCode(() -> CryptoFactory.aes256()).doesNotThrowAnyException();
+    assertThatCode(CryptoFactory::aes256).doesNotThrowAnyException();
   }
 
   @Test

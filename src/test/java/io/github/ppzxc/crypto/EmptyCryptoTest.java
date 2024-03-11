@@ -4,9 +4,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.ppzxc.fixh.ByteArrayUtils;
 import io.github.ppzxc.fixh.RandomUtils;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class EmptyCryptoTest {
+
+  @BeforeAll
+  static void beforeAll() throws CryptoException {
+    CryptoProvider.BOUNCY_CASTLE.addProvider();
+  }
 
   @Test
   void should_return_empty_when_byte_encrypt() throws CryptoException {

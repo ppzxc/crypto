@@ -3,12 +3,14 @@ package io.github.ppzxc.crypto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
+import io.github.ppzxc.crypto.RsaEncryptor.Builder;
 import io.github.ppzxc.fixh.ByteArrayUtils;
 import io.github.ppzxc.fixh.RandomUtils;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +18,11 @@ class RsaEncryptorTest {
 
   private Crypto encryptor;
   private Crypto decryptor;
+
+  @BeforeAll
+  static void beforeAll() throws CryptoException {
+    CryptoProvider.BOUNCY_CASTLE.addProvider();
+  }
 
   @BeforeEach
   void setUp() throws NoSuchAlgorithmException, NoSuchProviderException {
@@ -103,22 +110,38 @@ class RsaEncryptorTest {
 
   @Test
   void should_throw_exception_when_builder_1() {
-    assertThatCode(() -> RsaEncryptor.builder().transformation(null).build()).isInstanceOf(NullPointerException.class);
+    // given
+    Builder given = RsaEncryptor.builder();
+
+    // when, then
+    assertThatCode(() -> given.transformation(null)).isInstanceOf(NullPointerException.class);
   }
 
   @Test
   void should_throw_exception_when_builder_2() {
-    assertThatCode(() -> RsaEncryptor.builder().cryptoProvider(null).build()).isInstanceOf(NullPointerException.class);
+    // given
+    Builder given = RsaEncryptor.builder();
+
+    // when, then
+    assertThatCode(() -> given.cryptoProvider(null)).isInstanceOf(NullPointerException.class);
   }
 
   @Test
   void should_throw_exception_when_builder_3() {
-    assertThatCode(() -> RsaEncryptor.builder().charset(null).build()).isInstanceOf(NullPointerException.class);
+    // given
+    Builder given = RsaEncryptor.builder();
+
+    // when, then
+    assertThatCode(() -> given.charset(null)).isInstanceOf(NullPointerException.class);
   }
 
   @Test
   void should_throw_exception_when_builder_4() {
-    assertThatCode(() -> RsaEncryptor.builder().publicKey(null).build()).isInstanceOf(NullPointerException.class);
+    // given
+    Builder given = RsaEncryptor.builder();
+
+    // when, then
+    assertThatCode(() -> given.publicKey(null)).isInstanceOf(NullPointerException.class);
   }
 
   @Test

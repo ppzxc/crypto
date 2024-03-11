@@ -26,7 +26,7 @@ public final class Constants {
     try {
       SECURE_RANDOM = SecureRandom.getInstance(SHA_1_PRNG, SUN);
     } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-      throw new RuntimeException(e);
+      throw new IllegalArgumentException(e);
     }
   }
 

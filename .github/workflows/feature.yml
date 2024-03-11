@@ -1,4 +1,4 @@
-name: Feature
+name: feature
 
 on:
   push:
@@ -6,13 +6,8 @@ on:
 
 jobs:
   feature:
-    name: build, test when feature push
+    name: feature branch build on push
     runs-on: ubuntu-latest
-    env:
-      GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
-      GPG_SIGNING_PASSPHRASE: ${{ secrets.GPG_SIGNING_PASSPHRASE }}
-      OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-      OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
 
     steps:
       - name: Checkout
@@ -32,3 +27,9 @@ jobs:
 
       - name: Gradle Build
         run: ./gradlew build
+
+      - name: Generate JaCoCo Badge
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          generate-branches-badge: true
+          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv

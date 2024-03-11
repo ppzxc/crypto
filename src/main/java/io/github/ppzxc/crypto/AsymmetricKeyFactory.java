@@ -10,13 +10,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.Security;
 import java.security.spec.EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.function.Function;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.bouncycastle.util.io.pem.PemWriter;
@@ -43,15 +41,11 @@ public final class AsymmetricKeyFactory {
    */
   public static final String DEFAULT_PRIVATE_RSA_KEY_COMMENT = "RSA PRIVATE KEY";
 
-  static {
-    Security.addProvider(new BouncyCastleProvider());
-  }
-
   private AsymmetricKeyFactory() {
   }
 
   /**
-   * 표준 key size. DiffieHellman (1024, 2048, 4096). DSA (1024, 2048). RSA (1024, 2048, 4096).
+   * Generate key pair.
    *
    * @param asymmetricKeyType the asymmetric key type
    * @param cryptoProvider    the crypto provider
@@ -72,8 +66,9 @@ public final class AsymmetricKeyFactory {
    *
    * @param asymmetricKey the asymmetric key
    * @return the key pair
+   * @throws CryptoException the crypto exception
    */
-  public static KeyPair generate(AsymmetricKey asymmetricKey) {
+  public static KeyPair generate(AsymmetricKey asymmetricKey) throws CryptoException {
     return new KeyPair(
       toPublicKey(asymmetricKey.getAsymmetricKeyType(), asymmetricKey.getPublicKey(), X509EncodedKeySpec::new),
       toPrivateKey(asymmetricKey.getAsymmetricKeyType(), asymmetricKey.getPrivateKey(), PKCS8EncodedKeySpec::new));
@@ -123,14 +118,15 @@ public final class AsymmetricKeyFactory {
    * @param publicKey         the public key
    * @param encodedKeySpec    the encoded key spec
    * @return the public key
+   * @throws CryptoException the crypto exception
    */
   public static PublicKey toPublicKey(AsymmetricKeyType asymmetricKeyType, String publicKey,
-    Function<byte[], EncodedKeySpec> encodedKeySpec) {
+    Function<byte[], EncodedKeySpec> encodedKeySpec) throws CryptoException {
     try (PemReader pemReader = new PemReader(new StringReader(publicKey))) {
       return KeyFactory.getInstance(asymmetricKeyType.name())
         .generatePublic(encodedKeySpec.apply(pemReader.readPemObject().getContent()));
     } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
+      throw new CryptoException(e);
     }
   }
 
@@ -139,16 +135,17 @@ public final class AsymmetricKeyFactory {
    *
    * @param asymmetricKeyType the asymmetric key type
    * @param privateKey        the private key
-   * @param EncodedKeySpec    the encoded key spec
+   * @param encodedKeySpec    the encoded key spec
    * @return the private key
+   * @throws CryptoException the crypto exception
    */
   public static PrivateKey toPrivateKey(AsymmetricKeyType asymmetricKeyType, String privateKey,
-    Function<byte[], EncodedKeySpec> EncodedKeySpec) {
+    Function<byte[], EncodedKeySpec> encodedKeySpec) throws CryptoException {
     try (PemReader pemReader = new PemReader(new StringReader(privateKey))) {
       return KeyFactory.getInstance(asymmetricKeyType.name())
-        .generatePrivate(EncodedKeySpec.apply(pemReader.readPemObject().getContent()));
+        .generatePrivate(encodedKeySpec.apply(pemReader.readPemObject().getContent()));
     } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
+      throw new CryptoException(e);
     }
   }
 
