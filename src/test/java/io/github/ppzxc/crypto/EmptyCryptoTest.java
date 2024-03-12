@@ -3,7 +3,7 @@ package io.github.ppzxc.crypto;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.ppzxc.fixh.ByteArrayUtils;
-import io.github.ppzxc.fixh.RandomUtils;
+import io.github.ppzxc.fixh.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ class EmptyCryptoTest {
     Crypto crypto = EmptyCrypto.create();
 
     // when
-    byte[] actual = crypto.encrypt(RandomUtils.getInstance().string());
+    byte[] actual = crypto.encrypt(StringUtils.giveMeOne());
 
     // then
     assertThat(actual).isEmpty();
@@ -56,7 +56,7 @@ class EmptyCryptoTest {
     Crypto crypto = EmptyCrypto.create();
 
     // when
-    String actual = crypto.encryptToString(RandomUtils.getInstance().string());
+    String actual = crypto.encryptToString(StringUtils.giveMeOne());
 
     // then
     assertThat(actual).isNull();
@@ -80,7 +80,7 @@ class EmptyCryptoTest {
     Crypto crypto = EmptyCrypto.create();
 
     // when
-    byte[] actual = crypto.decrypt(RandomUtils.getInstance().string());
+    byte[] actual = crypto.decrypt(StringUtils.giveMeOne());
 
     // then
     assertThat(actual).isEmpty();

@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 
 import io.github.ppzxc.crypto.RsaCrypto.Builder;
 import io.github.ppzxc.fixh.ByteArrayUtils;
-import io.github.ppzxc.fixh.RandomUtils;
+import io.github.ppzxc.fixh.StringUtils;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
@@ -56,7 +56,7 @@ class RsaCryptoTest {
   @Test
   void should_encrypt_string_to_byte_array() throws CryptoException {
     // given
-    String plainText = RandomUtils.getInstance().string(256);
+    String plainText = StringUtils.giveMeOne(256);
 
     // when
     byte[] cipherText = crypto.encrypt(plainText);
@@ -86,7 +86,7 @@ class RsaCryptoTest {
   @Test
   void should_decrypt_string_to_byte_array() throws CryptoException {
     // given
-    String expected = RandomUtils.getInstance().string(256);
+    String expected = StringUtils.giveMeOne(256);
     byte[] cipherText = crypto.encrypt(expected);
 
     // when
@@ -112,7 +112,7 @@ class RsaCryptoTest {
   @Test
   void should_encrypt_string_to_string() throws CryptoException {
     // given
-    String expected = RandomUtils.getInstance().string(256);
+    String expected = StringUtils.giveMeOne(256);
     String cipherText = crypto.encryptToString(expected);
 
     // when

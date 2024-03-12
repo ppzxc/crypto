@@ -3,7 +3,7 @@ package io.github.ppzxc.crypto;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 import io.github.ppzxc.fixh.ByteArrayUtils;
-import io.github.ppzxc.fixh.RandomUtils;
+import io.github.ppzxc.fixh.StringUtils;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ class CryptoFactoryTest {
   @Test
   void should_throw_exception_invalid_key_size() {
     // given
-    byte[] key = RandomUtils.getInstance().string(10).getBytes(StandardCharsets.UTF_8);
+    byte[] key = StringUtils.giveMeOne(10).getBytes(StandardCharsets.UTF_8);
     TransformationType transformationType = null;
     Transformation transformation = null;
     CryptoProvider cryptoProvider = null;
@@ -50,7 +50,7 @@ class CryptoFactoryTest {
   @Test
   void should_return_crypto_3() {
     // given
-    String key = RandomUtils.getInstance().string(16);
+    String key = StringUtils.giveMeOne(16);
 
     // when, then
     assertThatCode(() -> CryptoFactory.aes(key)).doesNotThrowAnyException();

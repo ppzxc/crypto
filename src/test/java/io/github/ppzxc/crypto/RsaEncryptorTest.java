@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 
 import io.github.ppzxc.crypto.RsaEncryptor.Builder;
 import io.github.ppzxc.fixh.ByteArrayUtils;
-import io.github.ppzxc.fixh.RandomUtils;
+import io.github.ppzxc.fixh.StringUtils;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
@@ -47,7 +47,7 @@ class RsaEncryptorTest {
   @Test
   void should_encrypt_when_string_plain_text() throws CryptoException {
     // given
-    String expected = RandomUtils.getInstance().string(128);
+    String expected = StringUtils.giveMeOne(128);
 
     // when
     byte[] cipherText = encryptor.encrypt(expected);
@@ -73,7 +73,7 @@ class RsaEncryptorTest {
   @Test
   void should_encrypt_to_string_when_string() throws CryptoException {
     // given
-    String expected = RandomUtils.getInstance().string(128);
+    String expected = StringUtils.giveMeOne(128);
 
     // when
     String cipherText = encryptor.encryptToString(expected);

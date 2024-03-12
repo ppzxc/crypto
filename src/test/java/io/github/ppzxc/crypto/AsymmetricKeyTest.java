@@ -2,7 +2,7 @@ package io.github.ppzxc.crypto;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import io.github.ppzxc.fixh.RandomUtils;
+import io.github.ppzxc.fixh.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,8 +19,8 @@ class AsymmetricKeyTest {
   void should_throw_exception_when_null_type() {
     // given
     AsymmetricKeyType asymmetricKeyType = null;
-    String publicKey = RandomUtils.getInstance().string();
-    String privateKey = RandomUtils.getInstance().string();
+    String publicKey = StringUtils.giveMeOne();
+    String privateKey = StringUtils.giveMeOne();
 
     // when, then
     assertThatCode(() -> AsymmetricKey.of(asymmetricKeyType, publicKey, privateKey))
@@ -33,7 +33,7 @@ class AsymmetricKeyTest {
   void should_throw_exception_when_null_public_key(String publicKey) {
     // given
     AsymmetricKeyType asymmetricKeyType = AsymmetricKeyType.RSA;
-    String privateKey = RandomUtils.getInstance().string();
+    String privateKey = StringUtils.giveMeOne();
 
     // when, then
     assertThatCode(() -> AsymmetricKey.of(asymmetricKeyType, publicKey, privateKey))
@@ -46,7 +46,7 @@ class AsymmetricKeyTest {
   void should_throw_exception_when_null_private_key(String privateKey) {
     // given
     AsymmetricKeyType asymmetricKeyType = AsymmetricKeyType.RSA;
-    String publicKey = RandomUtils.getInstance().string();
+    String publicKey = StringUtils.giveMeOne();
 
     // when, then
     assertThatCode(() -> AsymmetricKey.of(asymmetricKeyType, publicKey, privateKey))

@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 import io.github.ppzxc.fixh.ByteArrayUtils;
-import io.github.ppzxc.fixh.RandomUtils;
+import io.github.ppzxc.fixh.StringUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeAll;
@@ -91,7 +91,7 @@ class AesCtrTest {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomUtils.getInstance().string(512);
+    String expected = StringUtils.giveMeOne(512);
 
     // when
     byte[] cipherText = given.encrypt(expected);
@@ -107,7 +107,7 @@ class AesCtrTest {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomUtils.getInstance().string(512);
+    String expected = StringUtils.giveMeOne(512);
 
     // when
     byte[] cipherText = given.encrypt(expected.getBytes(StandardCharsets.UTF_8));
@@ -123,7 +123,7 @@ class AesCtrTest {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomUtils.getInstance().string(512);
+    String expected = StringUtils.giveMeOne(512);
 
     // when
     String cipherText = given.encryptToString(expected);
@@ -139,7 +139,7 @@ class AesCtrTest {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomUtils.getInstance().string(512);
+    String expected = StringUtils.giveMeOne(512);
 
     // when
     String cipherText = given.encryptToString(expected);
@@ -155,7 +155,7 @@ class AesCtrTest {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomUtils.getInstance().string(512);
+    String expected = StringUtils.giveMeOne(512);
 
     // when
     String cipherText = given.encryptToString(expected);
@@ -171,7 +171,7 @@ class AesCtrTest {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
-    String expected = RandomUtils.getInstance().string(512);
+    String expected = StringUtils.giveMeOne(512);
 
     // when
     String cipherText = given.encryptToString(expected);
