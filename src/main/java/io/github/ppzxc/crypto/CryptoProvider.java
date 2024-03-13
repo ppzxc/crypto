@@ -3,13 +3,7 @@ package io.github.ppzxc.crypto;
 import java.security.Security;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-/**
- * The enum Crypto provider.
- */
 public enum CryptoProvider {
-  /**
-   * Bouncy castle crypto provider.
-   */
   NONE("NONE"),
   BOUNCY_CASTLE("BC");
 
@@ -19,11 +13,6 @@ public enum CryptoProvider {
     this.code = code;
   }
 
-  /**
-   * Gets code.
-   *
-   * @return the code
-   */
   public String getCode() {
     return code;
   }

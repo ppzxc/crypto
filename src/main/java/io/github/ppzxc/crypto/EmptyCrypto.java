@@ -1,18 +1,10 @@
 package io.github.ppzxc.crypto;
 
-/**
- * The type Empty crypto.
- */
 public final class EmptyCrypto {
 
   private EmptyCrypto() {
   }
 
-  /**
-   * Create crypto.
-   *
-   * @return the crypto
-   */
   public static Crypto create() {
     return new Crypto() {
       @Override
