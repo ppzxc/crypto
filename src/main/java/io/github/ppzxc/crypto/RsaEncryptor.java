@@ -6,9 +6,6 @@ import java.security.PublicKey;
 import javax.crypto.Cipher;
 import org.bouncycastle.util.encoders.Base64;
 
-/**
- * The type Rsa encryptor.
- */
 public final class RsaEncryptor implements Crypto {
 
   private final Transformation transformation;
@@ -69,18 +66,10 @@ public final class RsaEncryptor implements Crypto {
     throw CryptoException.notSupportedDecrypt();
   }
 
-  /**
-   * Builder builder.
-   *
-   * @return the builder
-   */
   public static Builder builder() {
     return new Builder();
   }
 
-  /**
-   * The type Builder.
-   */
   public static class Builder {
 
     private Transformation transformation = Transformation.RSA;
@@ -88,18 +77,9 @@ public final class RsaEncryptor implements Crypto {
     private Charset charset = StandardCharsets.UTF_8;
     private PublicKey publicKey;
 
-    /**
-     * Instantiates a new Builder.
-     */
     Builder() {
     }
 
-    /**
-     * Transformation builder.
-     *
-     * @param transformation the transformation
-     * @return the builder
-     */
     public Builder transformation(Transformation transformation) {
       if (transformation == null) {
         throw new NullPointerException("transformation is marked non-null but is null");
@@ -109,12 +89,6 @@ public final class RsaEncryptor implements Crypto {
       }
     }
 
-    /**
-     * Crypto provider builder.
-     *
-     * @param cryptoProvider the crypto provider
-     * @return the builder
-     */
     public Builder cryptoProvider(CryptoProvider cryptoProvider) {
       if (cryptoProvider == null) {
         throw new NullPointerException("cryptoProvider is marked non-null but is null");
@@ -124,12 +98,6 @@ public final class RsaEncryptor implements Crypto {
       }
     }
 
-    /**
-     * Charset builder.
-     *
-     * @param charset the charset
-     * @return the builder
-     */
     public Builder charset(Charset charset) {
       if (charset == null) {
         throw new NullPointerException("charset is marked non-null but is null");
@@ -139,12 +107,6 @@ public final class RsaEncryptor implements Crypto {
       }
     }
 
-    /**
-     * Public key builder.
-     *
-     * @param publicKey the public key
-     * @return the builder
-     */
     public Builder publicKey(PublicKey publicKey) {
       if (publicKey == null) {
         throw new NullPointerException("publicKey is marked non-null but is null");
@@ -154,11 +116,6 @@ public final class RsaEncryptor implements Crypto {
       }
     }
 
-    /**
-     * Build rsa encryptor.
-     *
-     * @return the rsa encryptor
-     */
     public RsaEncryptor build() {
       return new RsaEncryptor(transformation, cryptoProvider, charset, publicKey);
     }

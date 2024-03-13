@@ -7,9 +7,6 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import org.bouncycastle.util.encoders.Base64;
 
-/**
- * The type Aes crypto.
- */
 public final class AesCrypto implements Crypto {
 
   private final SecretKeySpec secretKeySpec;
@@ -79,18 +76,10 @@ public final class AesCrypto implements Crypto {
     return new String(decrypt(cipherText.getBytes(charset)), charset);
   }
 
-  /**
-   * Builder aes crypto builder.
-   *
-   * @return the aes crypto builder
-   */
   public static AesCryptoBuilder builder() {
     return new AesCryptoBuilder();
   }
 
-  /**
-   * The type Aes crypto builder.
-   */
   public static class AesCryptoBuilder {
 
     private SecretKeySpec secretKeySpec;
@@ -99,18 +88,9 @@ public final class AesCrypto implements Crypto {
     private CryptoProvider cryptoProvider = CryptoProvider.BOUNCY_CASTLE;
     private Charset charset = StandardCharsets.UTF_8;
 
-    /**
-     * Instantiates a new Aes crypto builder.
-     */
     AesCryptoBuilder() {
     }
 
-    /**
-     * Secret key spec aes crypto builder.
-     *
-     * @param secretKeySpec the secret key spec
-     * @return the aes crypto builder
-     */
     public AesCryptoBuilder secretKeySpec(SecretKeySpec secretKeySpec) {
       if (secretKeySpec == null) {
         throw new NullPointerException("secretKeySpec is marked non-null but is null");
@@ -120,12 +100,6 @@ public final class AesCrypto implements Crypto {
       }
     }
 
-    /**
-     * Iv parameter spec aes crypto builder.
-     *
-     * @param ivParameterSpec the iv parameter spec
-     * @return the aes crypto builder
-     */
     public AesCryptoBuilder ivParameterSpec(IvParameterSpec ivParameterSpec) {
       if (ivParameterSpec == null) {
         throw new NullPointerException("ivParameterSpec is marked non-null but is null");
@@ -135,12 +109,6 @@ public final class AesCrypto implements Crypto {
       }
     }
 
-    /**
-     * Transformation aes crypto builder.
-     *
-     * @param transformation the transformation
-     * @return the aes crypto builder
-     */
     public AesCryptoBuilder transformation(Transformation transformation) {
       if (transformation == null) {
         throw new NullPointerException("transformation is marked non-null but is null");
@@ -150,12 +118,6 @@ public final class AesCrypto implements Crypto {
       }
     }
 
-    /**
-     * Crypto provider aes crypto builder.
-     *
-     * @param cryptoProvider the crypto provider
-     * @return the aes crypto builder
-     */
     public AesCryptoBuilder cryptoProvider(CryptoProvider cryptoProvider) {
       if (cryptoProvider == null) {
         throw new NullPointerException("cryptoProvider is marked non-null but is null");
@@ -165,12 +127,6 @@ public final class AesCrypto implements Crypto {
       }
     }
 
-    /**
-     * Charset aes crypto builder.
-     *
-     * @param charset the charset
-     * @return the aes crypto builder
-     */
     public AesCryptoBuilder charset(Charset charset) {
       if (charset == null) {
         throw new NullPointerException("charset is marked non-null but is null");
@@ -180,11 +136,6 @@ public final class AesCrypto implements Crypto {
       }
     }
 
-    /**
-     * Build aes crypto.
-     *
-     * @return the aes crypto
-     */
     public AesCrypto build() {
       return new AesCrypto(secretKeySpec, ivParameterSpec, transformation, cryptoProvider, charset);
     }
