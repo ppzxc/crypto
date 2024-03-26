@@ -12,7 +12,7 @@ public final class CryptoFactory {
 
   public static final Charset CHARSET = StandardCharsets.UTF_8;
   public static final CryptoProvider AES_DEFAULT_CRYPTO_PROVIDER = CryptoProvider.BOUNCY_CASTLE;
-  public static final Transformation DEFAULT_AES_TRANSFORMATION = Transformation.AES_CBC_PKCS5PADDING;
+  public static final Transformation DEFAULT_AES_TRANSFORMATION = Transformation.AES_CBC_PKCS7PADDING;
   public static final String DEFAULT_AES_128_SYMMETRIC_KEY = "nanoitSecretKeys";
   public static final String DEFAULT_AES_192_SYMMETRIC_KEY = "nanoitSecretKeysNanoitSe";
   public static final String DEFAULT_AES_256_SYMMETRIC_KEY = "nanoitSecretKeysNanoitSecretKeys";
