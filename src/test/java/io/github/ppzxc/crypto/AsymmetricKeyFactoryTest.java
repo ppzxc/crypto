@@ -26,12 +26,12 @@ class AsymmetricKeyFactoryTest {
     // then
     assertThat(actual).isNotNull();
     assertThat(actual.getPublic()).isNotNull();
-    assertThat(actual.getPublic().getAlgorithm()).isEqualTo(AsymmetricKeyType.RSA.name());
+    assertThat(actual.getPublic().getAlgorithm()).isEqualTo(AsymmetricKey.Type.RSA.name());
     assertThat(actual.getPublic().getEncoded()).isNotNull().hasSizeGreaterThan(0);
     assertThat(actual.getPublic().getFormat()).isNotBlank();
     assertThat(actual.getPrivate()).isNotNull();
     assertThat(actual.getPrivate()).isNotNull();
-    assertThat(actual.getPrivate().getAlgorithm()).isEqualTo(AsymmetricKeyType.RSA.name());
+    assertThat(actual.getPrivate().getAlgorithm()).isEqualTo(AsymmetricKey.Type.RSA.name());
     assertThat(actual.getPrivate().getEncoded()).isNotNull().hasSizeGreaterThan(0);
     assertThat(actual.getPrivate().getFormat()).isNotBlank();
   }
@@ -42,7 +42,7 @@ class AsymmetricKeyFactoryTest {
     KeyPair given = AsymmetricKeyFactory.generateRsa();
 
     // when
-    AsymmetricKey actual = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKeyType.RSA, given);
+    AsymmetricKey actual = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKey.Type.RSA, given);
 
     // then
     assertThat(actual.getPublicKey()).isNotBlank().contains(AsymmetricKeyFactory.DEFAULT_PUBLIC_KEY_COMMENT);
@@ -54,7 +54,7 @@ class AsymmetricKeyFactoryTest {
     throws NoSuchAlgorithmException, IOException, NoSuchProviderException, CryptoException {
     // given
     KeyPair expected = AsymmetricKeyFactory.generateRsa();
-    AsymmetricKey given = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKeyType.RSA, expected);
+    AsymmetricKey given = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKey.Type.RSA, expected);
 
     // when
     KeyPair actual = AsymmetricKeyFactory.generate(given);
@@ -73,7 +73,7 @@ class AsymmetricKeyFactoryTest {
     throws NoSuchAlgorithmException, IOException, NoSuchProviderException, CryptoException {
     // given
     KeyPair expected = AsymmetricKeyFactory.generateRsa(1024);
-    AsymmetricKey given = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKeyType.RSA, expected);
+    AsymmetricKey given = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKey.Type.RSA, expected);
 
     // when
     KeyPair actual = AsymmetricKeyFactory.generate(given);
@@ -92,7 +92,7 @@ class AsymmetricKeyFactoryTest {
     throws NoSuchAlgorithmException, IOException, NoSuchProviderException, CryptoException {
     // given
     KeyPair expected = AsymmetricKeyFactory.generateRsa(2048);
-    AsymmetricKey given = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKeyType.RSA, expected);
+    AsymmetricKey given = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKey.Type.RSA, expected);
 
     // when
     KeyPair actual = AsymmetricKeyFactory.generate(given);
@@ -109,11 +109,11 @@ class AsymmetricKeyFactoryTest {
   @Test
   void should_created_when_given_asymmetric_key_type() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
     // given, when
-    AsymmetricKey actual = AsymmetricKeyFactory.generate(AsymmetricKeyType.RSA);
+    AsymmetricKey actual = AsymmetricKeyFactory.generate(AsymmetricKey.Type.RSA);
 
     // then
     assertThat(actual).isNotNull();
-    assertThat(actual.getAsymmetricKeyType()).isEqualByComparingTo(AsymmetricKeyType.RSA);
+    assertThat(actual.getType()).isEqualByComparingTo(AsymmetricKey.Type.RSA);
     assertThat(actual.getPublicKey()).isNotBlank();
     assertThat(actual.getPrivateKey()).isNotBlank();
   }

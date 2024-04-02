@@ -3,6 +3,7 @@ package io.github.ppzxc.crypto;
 import java.util.Arrays;
 
 public enum TransformationMode {
+  NONE("NONE"),
   ELECTRONIC_CODE_BLOCK("ECB"),
   CIPHER_BLOCK_CHAINING("CBC"),
   CIPHER_FEEDBACK("CFB"),

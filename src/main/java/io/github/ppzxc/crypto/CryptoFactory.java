@@ -90,7 +90,7 @@ public final class CryptoFactory {
   }
 
   public static Crypto rsa(PublicKey publicKey) {
-    return RsaEncryptor.builder()
+    return RsaPublicCrypto.builder()
       .publicKey(publicKey)
       .build();
   }

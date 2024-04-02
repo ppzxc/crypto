@@ -82,7 +82,7 @@ public final class RsaCrypto implements Crypto {
 
   public static class Builder {
 
-    private Transformation transformation = Transformation.RSA;
+    private Transformation transformation = Transformation.RSA_ECB_PKCS1PADDING;
     private CryptoProvider cryptoProvider = CryptoProvider.BOUNCY_CASTLE;
     private Charset charset = StandardCharsets.UTF_8;
     private PublicKey publicKey;

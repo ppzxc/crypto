@@ -6,14 +6,14 @@ import java.security.PublicKey;
 import javax.crypto.Cipher;
 import org.bouncycastle.util.encoders.Base64;
 
-public final class RsaEncryptor implements Crypto {
+public final class RsaPublicCrypto implements Crypto {
 
   private final Transformation transformation;
   private final CryptoProvider cryptoProvider;
   private final Charset charset;
   private final PublicKey publicKey;
 
-  private RsaEncryptor(Transformation transformation, CryptoProvider cryptoProvider, Charset charset, PublicKey publicKey) {
+  private RsaPublicCrypto(Transformation transformation, CryptoProvider cryptoProvider, Charset charset, PublicKey publicKey) {
     this.transformation = transformation;
     this.cryptoProvider = cryptoProvider;
     this.charset = charset;
@@ -72,7 +72,7 @@ public final class RsaEncryptor implements Crypto {
 
   public static class Builder {
 
-    private Transformation transformation = Transformation.RSA;
+    private Transformation transformation = Transformation.RSA_ECB_PKCS1PADDING;
     private CryptoProvider cryptoProvider = CryptoProvider.BOUNCY_CASTLE;
     private Charset charset = StandardCharsets.UTF_8;
     private PublicKey publicKey;
@@ -116,8 +116,8 @@ public final class RsaEncryptor implements Crypto {
       }
     }
 
-    public RsaEncryptor build() {
-      return new RsaEncryptor(transformation, cryptoProvider, charset, publicKey);
+    public RsaPublicCrypto build() {
+      return new RsaPublicCrypto(transformation, cryptoProvider, charset, publicKey);
     }
   }
 }

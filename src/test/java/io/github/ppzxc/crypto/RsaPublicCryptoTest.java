@@ -3,7 +3,7 @@ package io.github.ppzxc.crypto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import io.github.ppzxc.crypto.RsaEncryptor.Builder;
+import io.github.ppzxc.crypto.RsaPublicCrypto.Builder;
 import io.github.ppzxc.fixh.ByteArrayUtils;
 import io.github.ppzxc.fixh.StringUtils;
 import java.nio.charset.StandardCharsets;
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class RsaEncryptorTest {
+class RsaPublicCryptoTest {
 
   private Crypto encryptor;
   private Crypto decryptor;
@@ -111,7 +111,7 @@ class RsaEncryptorTest {
   @Test
   void should_throw_exception_when_builder_1() {
     // given
-    Builder given = RsaEncryptor.builder();
+    Builder given = RsaPublicCrypto.builder();
 
     // when, then
     assertThatCode(() -> given.transformation(null)).isInstanceOf(NullPointerException.class);
@@ -120,7 +120,7 @@ class RsaEncryptorTest {
   @Test
   void should_throw_exception_when_builder_2() {
     // given
-    Builder given = RsaEncryptor.builder();
+    Builder given = RsaPublicCrypto.builder();
 
     // when, then
     assertThatCode(() -> given.cryptoProvider(null)).isInstanceOf(NullPointerException.class);
@@ -129,7 +129,7 @@ class RsaEncryptorTest {
   @Test
   void should_throw_exception_when_builder_3() {
     // given
-    Builder given = RsaEncryptor.builder();
+    Builder given = RsaPublicCrypto.builder();
 
     // when, then
     assertThatCode(() -> given.charset(null)).isInstanceOf(NullPointerException.class);
@@ -138,7 +138,7 @@ class RsaEncryptorTest {
   @Test
   void should_throw_exception_when_builder_4() {
     // given
-    Builder given = RsaEncryptor.builder();
+    Builder given = RsaPublicCrypto.builder();
 
     // when, then
     assertThatCode(() -> given.publicKey(null)).isInstanceOf(NullPointerException.class);
@@ -146,7 +146,7 @@ class RsaEncryptorTest {
 
   @Test
   void should_created() {
-    assertThatCode(() -> RsaEncryptor.builder()
+    assertThatCode(() -> RsaPublicCrypto.builder()
       .transformation(Transformation.AES_CBC_PKCS5PADDING)
       .cryptoProvider(CryptoProvider.BOUNCY_CASTLE)
       .charset(StandardCharsets.UTF_8)

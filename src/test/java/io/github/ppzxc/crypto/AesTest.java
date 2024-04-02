@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-class AesCbcTest {
+class AesTest {
 
   @BeforeAll
   static void beforeAll() throws CryptoException {
@@ -24,7 +24,7 @@ class AesCbcTest {
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
-  void should_encryption_and_decryption_when_use_aes_cbc_1(AesArgument aesArgument) throws CryptoException {
+  void should_encryption_and_decryption_when_use_aes_1(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
@@ -40,7 +40,7 @@ class AesCbcTest {
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
-  void should_encryption_and_decryption_when_use_aes_cbc_2(AesArgument aesArgument) throws CryptoException {
+  void should_encryption_and_decryption_when_use_aes_2(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
@@ -56,7 +56,7 @@ class AesCbcTest {
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
-  void should_encryption_and_decryption_when_use_aes_cbc_3(AesArgument aesArgument) throws CryptoException {
+  void should_encryption_and_decryption_when_use_aes_3(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
@@ -72,7 +72,7 @@ class AesCbcTest {
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
-  void should_encryption_and_decryption_when_use_aes_cbc_4(AesArgument aesArgument) throws CryptoException {
+  void should_encryption_and_decryption_when_use_aes_4(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
@@ -88,7 +88,7 @@ class AesCbcTest {
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
-  void should_encryption_and_decryption_when_use_aes_cbc_5(AesArgument aesArgument) throws CryptoException {
+  void should_encryption_and_decryption_when_use_aes_5(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
@@ -104,7 +104,7 @@ class AesCbcTest {
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
-  void should_encryption_and_decryption_when_use_aes_cbc_6(AesArgument aesArgument) throws CryptoException {
+  void should_encryption_and_decryption_when_use_aes_6(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
@@ -120,7 +120,7 @@ class AesCbcTest {
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
-  void should_encryption_and_decryption_when_use_aes_cbc_7(AesArgument aesArgument) throws CryptoException {
+  void should_encryption_and_decryption_when_use_aes_7(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
@@ -136,7 +136,7 @@ class AesCbcTest {
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
-  void should_encryption_and_decryption_when_use_aes_cbc_8(AesArgument aesArgument) throws CryptoException {
+  void should_encryption_and_decryption_when_use_aes_8(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
@@ -152,7 +152,7 @@ class AesCbcTest {
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
-  void should_encryption_and_decryption_when_use_aes_cbc_9(AesArgument aesArgument) throws CryptoException {
+  void should_encryption_and_decryption_when_use_aes_9(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
@@ -168,7 +168,7 @@ class AesCbcTest {
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
-  void should_encryption_and_decryption_when_use_aes_cbc_10(AesArgument aesArgument) throws CryptoException {
+  void should_encryption_and_decryption_when_use_aes_10(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
       aesArgument.provider);
@@ -184,11 +184,12 @@ class AesCbcTest {
 
   @ParameterizedTest
   @ArgumentsSource(value = AesArgumentsProvider.class)
-  void should_encryption_and_decryption_when_use_aes_cbc_11(AesArgument aesArgument) {
+  void should_encryption_and_decryption_when_use_aes_11(AesArgument aesArgument) {
     for (int i = 0; i <= 256; i++) {
       int finalI = i;
-      assertThatCode(() -> CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-        aesArgument.provider, ByteArrayUtils.giveMeOne(finalI))).doesNotThrowAnyException();
+      assertThatCode(
+        () -> CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
+          aesArgument.provider, ByteArrayUtils.giveMeOne(finalI))).doesNotThrowAnyException();
     }
   }
 
@@ -201,12 +202,38 @@ class AesCbcTest {
 
     @Override
     public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) {
-      return Stream.of(new AesArgument(16, Transformation.AES_CBC_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+      return Stream.of(
+          new AesArgument(16, Transformation.AES_ECB_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(24, Transformation.AES_ECB_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(32, Transformation.AES_ECB_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(16, Transformation.AES_ECB_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(24, Transformation.AES_ECB_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(32, Transformation.AES_ECB_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(16, Transformation.AES_CBC_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
           new AesArgument(24, Transformation.AES_CBC_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
           new AesArgument(32, Transformation.AES_CBC_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
           new AesArgument(16, Transformation.AES_CBC_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
           new AesArgument(24, Transformation.AES_CBC_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
-          new AesArgument(32, Transformation.AES_CBC_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE))
+          new AesArgument(32, Transformation.AES_CBC_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(16, Transformation.AES_CFB_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(24, Transformation.AES_CFB_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(32, Transformation.AES_CFB_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(16, Transformation.AES_CFB_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(24, Transformation.AES_CFB_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(32, Transformation.AES_CFB_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(16, Transformation.AES_OFB_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(24, Transformation.AES_OFB_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(32, Transformation.AES_OFB_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(16, Transformation.AES_OFB_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(24, Transformation.AES_OFB_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(32, Transformation.AES_OFB_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(16, Transformation.AES_CTR_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(24, Transformation.AES_CTR_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(32, Transformation.AES_CTR_PKCS5PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(16, Transformation.AES_CTR_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(24, Transformation.AES_CTR_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE),
+          new AesArgument(32, Transformation.AES_CTR_PKCS7PADDING, CryptoProvider.BOUNCY_CASTLE)
+        )
         .map(Arguments::of);
     }
   }

@@ -2,16 +2,16 @@ package io.github.ppzxc.crypto;
 
 public class AsymmetricKey {
 
-  private final AsymmetricKeyType asymmetricKeyType;
+  private final Type type;
   private final String publicKey;
   private final String privateKey;
 
-  private AsymmetricKey(AsymmetricKeyType asymmetricKeyType, String publicKey, String privateKey) {
-    this.asymmetricKeyType = asymmetricKeyType;
+  private AsymmetricKey(Type type, String publicKey, String privateKey) {
+    this.type = type;
     this.publicKey = publicKey;
     this.privateKey = privateKey;
-    if (asymmetricKeyType == null) {
-      throw new IllegalArgumentException("'AsymmetricKeyType' require not null");
+    if (type == null) {
+      throw new IllegalArgumentException("'AsymmetricKey.Type' require not null");
     }
     if (publicKey == null || publicKey.trim().isEmpty()) {
       throw new IllegalArgumentException("'PublicKey' require not blank");
@@ -21,12 +21,12 @@ public class AsymmetricKey {
     }
   }
 
-  public static AsymmetricKey of(AsymmetricKeyType asymmetricKeyType, String publicKey, String privateKey) {
-    return new AsymmetricKey(asymmetricKeyType, publicKey, privateKey);
+  public static AsymmetricKey of(Type type, String publicKey, String privateKey) {
+    return new AsymmetricKey(type, publicKey, privateKey);
   }
 
-  public AsymmetricKeyType getAsymmetricKeyType() {
-    return asymmetricKeyType;
+  public Type getType() {
+    return type;
   }
 
   public String getPublicKey() {
@@ -35,5 +35,9 @@ public class AsymmetricKey {
 
   public String getPrivateKey() {
     return privateKey;
+  }
+
+  public enum Type {
+    RSA
   }
 }

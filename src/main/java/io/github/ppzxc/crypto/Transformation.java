@@ -4,15 +4,19 @@ import static io.github.ppzxc.crypto.TransformationMode.CIPHER_BLOCK_CHAINING;
 import static io.github.ppzxc.crypto.TransformationMode.CIPHER_FEEDBACK;
 import static io.github.ppzxc.crypto.TransformationMode.COUNTER;
 import static io.github.ppzxc.crypto.TransformationMode.ELECTRONIC_CODE_BLOCK;
+import static io.github.ppzxc.crypto.TransformationMode.NONE;
 import static io.github.ppzxc.crypto.TransformationMode.OUTPUT_FEEDBACK;
+import static io.github.ppzxc.crypto.TransformationPkcs.PKCS1PADDING;
 import static io.github.ppzxc.crypto.TransformationPkcs.PKCS5PADDING;
 import static io.github.ppzxc.crypto.TransformationPkcs.PKCS7PADDING;
 import static io.github.ppzxc.crypto.TransformationType.ADVANCED_ENCRYPTION_STANDARD;
+import static io.github.ppzxc.crypto.TransformationType.RON_ADI_LEONARD;
 
 import java.util.Arrays;
 
 public enum Transformation {
-  RSA(TransformationType.RSA, null, null),
+  RSA_NONE_PKCS1PADDING(RON_ADI_LEONARD, NONE, PKCS1PADDING),
+  RSA_ECB_PKCS1PADDING(RON_ADI_LEONARD, ELECTRONIC_CODE_BLOCK, PKCS1PADDING),
   AES_ECB_PKCS5PADDING(ADVANCED_ENCRYPTION_STANDARD, ELECTRONIC_CODE_BLOCK, PKCS5PADDING),
   AES_ECB_PKCS7PADDING(ADVANCED_ENCRYPTION_STANDARD, ELECTRONIC_CODE_BLOCK, PKCS7PADDING),
   AES_CBC_PKCS5PADDING(ADVANCED_ENCRYPTION_STANDARD, CIPHER_BLOCK_CHAINING, PKCS5PADDING),
@@ -37,12 +41,8 @@ public enum Transformation {
   }
 
   public String getCode() {
-    if (transformationType == TransformationType.RSA) {
-      return transformationType.getCode();
-    } else {
-      return String.format("%s/%s/%s", transformationType.getCode(), transformationMode.getCode(),
-        transformationPkcs.getCode());
-    }
+    return String.format("%s/%s/%s", transformationType.getCode(), transformationMode.getCode(),
+      transformationPkcs.getCode());
   }
 
   public static Transformation of(String type, String mode, String pkcs) {

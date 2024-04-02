@@ -18,25 +18,25 @@ class AsymmetricKeyTest {
   @Test
   void should_throw_exception_when_null_type() {
     // given
-    AsymmetricKeyType asymmetricKeyType = null;
+    AsymmetricKey.Type  type = null;
     String publicKey = StringUtils.giveMeOne();
     String privateKey = StringUtils.giveMeOne();
 
     // when, then
-    assertThatCode(() -> AsymmetricKey.of(asymmetricKeyType, publicKey, privateKey))
+    assertThatCode(() -> AsymmetricKey.of(type, publicKey, privateKey))
       .isInstanceOf(IllegalArgumentException.class)
-      .hasMessage("'AsymmetricKeyType' require not null");
+      .hasMessage("'AsymmetricKey.Type' require not null");
   }
 
   @ParameterizedTest
   @MethodSource("nullEmptyBlank")
   void should_throw_exception_when_null_public_key(String publicKey) {
     // given
-    AsymmetricKeyType asymmetricKeyType = AsymmetricKeyType.RSA;
+    AsymmetricKey.Type type = AsymmetricKey.Type.RSA;
     String privateKey = StringUtils.giveMeOne();
 
     // when, then
-    assertThatCode(() -> AsymmetricKey.of(asymmetricKeyType, publicKey, privateKey))
+    assertThatCode(() -> AsymmetricKey.of(type, publicKey, privateKey))
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage("'PublicKey' require not blank");
   }
@@ -45,11 +45,11 @@ class AsymmetricKeyTest {
   @MethodSource("nullEmptyBlank")
   void should_throw_exception_when_null_private_key(String privateKey) {
     // given
-    AsymmetricKeyType asymmetricKeyType = AsymmetricKeyType.RSA;
+    AsymmetricKey.Type type = AsymmetricKey.Type.RSA;
     String publicKey = StringUtils.giveMeOne();
 
     // when, then
-    assertThatCode(() -> AsymmetricKey.of(asymmetricKeyType, publicKey, privateKey))
+    assertThatCode(() -> AsymmetricKey.of(type, publicKey, privateKey))
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessage("'PrivateKey' require not blank");
   }

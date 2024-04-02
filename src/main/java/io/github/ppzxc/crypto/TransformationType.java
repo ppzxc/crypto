@@ -3,7 +3,7 @@ package io.github.ppzxc.crypto;
 import java.util.Arrays;
 
 public enum TransformationType {
-  RSA("RSA"),
+  RON_ADI_LEONARD("RSA"),
   DATA_ENCRYPTION_STANDARD("DES"),
   ADVANCED_ENCRYPTION_STANDARD("AES");
 

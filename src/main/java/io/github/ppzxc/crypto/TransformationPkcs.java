@@ -3,6 +3,7 @@ package io.github.ppzxc.crypto;
 import java.util.Arrays;
 
 public enum TransformationPkcs {
+  PKCS1PADDING("PKCS1Padding"),
   PKCS5PADDING("PKCS5Padding"),
   PKCS7PADDING("PKCS7Padding");
 
