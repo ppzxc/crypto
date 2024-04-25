@@ -18,8 +18,9 @@ public final class SymmetricKeyFactory {
       throw new IllegalArgumentException("require symmetric key size 16, 24, 32");
     }
     return IntStream.range(0, size)
-      .mapToObj(ignored -> String.valueOf(ALPHABET.charAt(Constants.SECURE_RANDOM.nextInt(ALPHABET.length()))))
-      .collect(Collectors.joining());
+        .mapToObj(ignored -> String.valueOf(
+            ALPHABET.charAt(CryptoSecureRandom.getSecureRandom().nextInt(ALPHABET.length()))))
+        .collect(Collectors.joining());
   }
 
   public static SymmetricKey bit128() {

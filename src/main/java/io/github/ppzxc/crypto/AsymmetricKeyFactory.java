@@ -32,7 +32,7 @@ public final class AsymmetricKeyFactory {
   public static KeyPair generate(AsymmetricKey.Type type, CryptoProvider cryptoProvider, int keySize)
     throws NoSuchAlgorithmException, NoSuchProviderException {
     KeyPairGenerator generator = KeyPairGenerator.getInstance(type.name(), cryptoProvider.getCode());
-    generator.initialize(keySize, Constants.SECURE_RANDOM);
+    generator.initialize(keySize, CryptoSecureRandom.getSecureRandom());
     return generator.generateKeyPair();
   }
 
