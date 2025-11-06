@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 class AsymmetricKeyTest {
 
   @BeforeAll
-  static void beforeAll() throws CryptoException {
+  static void beforeAll() {
     CryptoProvider.BOUNCY_CASTLE.addProvider();
   }
 

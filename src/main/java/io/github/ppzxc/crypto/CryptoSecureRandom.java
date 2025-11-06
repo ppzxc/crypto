@@ -15,7 +15,7 @@ public final class CryptoSecureRandom {
     try {
       return SecureRandom.getInstance(algorithm, provider);
     } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-      throw new RuntimeException(e);
+      throw new CryptoRuntimeException(e);
     }
   }
 
@@ -23,7 +23,7 @@ public final class CryptoSecureRandom {
     try {
       return SecureRandom.getInstance(algorithm);
     } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
+      throw new CryptoRuntimeException(e);
     }
   }
 

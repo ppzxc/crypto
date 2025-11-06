@@ -13,11 +13,6 @@ public final class CryptoFactory {
   public static final Charset CHARSET = StandardCharsets.UTF_8;
   public static final CryptoProvider AES_DEFAULT_CRYPTO_PROVIDER = CryptoProvider.BOUNCY_CASTLE;
   public static final Transformation DEFAULT_AES_TRANSFORMATION = Transformation.AES_CBC_PKCS7PADDING;
-  public static final String DEFAULT_AES_128_SYMMETRIC_KEY = "nanoitSecretKeys";
-  public static final String DEFAULT_AES_192_SYMMETRIC_KEY = "nanoitSecretKeysNanoitSe";
-  public static final String DEFAULT_AES_256_SYMMETRIC_KEY = "nanoitSecretKeysNanoitSecretKeys";
-  public static final String DEFAULT_AES_IV_PARAMETER = "nanoitDefaultIvs";
-  private static final byte[] DEFAULT_AES_IV_PARAMETER_BYTES = DEFAULT_AES_IV_PARAMETER.getBytes(CHARSET);
 
   private CryptoFactory() {
   }
@@ -43,43 +38,16 @@ public final class CryptoFactory {
     }
   }
 
-  public static Crypto aes(byte[] key, Transformation transformation) {
-    return aes(key, transformation.getTransformationType(), transformation, AES_DEFAULT_CRYPTO_PROVIDER,
-      DEFAULT_AES_IV_PARAMETER_BYTES);
-  }
-
-  public static Crypto aes(byte[] key, Transformation transformation, CryptoProvider cryptoProvider) {
-    return aes(key, transformation.getTransformationType(), transformation, cryptoProvider,
-      DEFAULT_AES_IV_PARAMETER_BYTES);
+  public static Crypto aes(byte[] key, Transformation transformation, byte[] iv) {
+    return aes(key, transformation.getTransformationType(), transformation, AES_DEFAULT_CRYPTO_PROVIDER, iv);
   }
 
   public static Crypto aes(byte[] key, Transformation transformation, CryptoProvider cryptoProvider, byte[] iv) {
     return aes(key, transformation.getTransformationType(), transformation, cryptoProvider, iv);
   }
 
-  public static Crypto aes(byte[] key) {
-    return aes(key, DEFAULT_AES_TRANSFORMATION.getTransformationType(), DEFAULT_AES_TRANSFORMATION,
-      AES_DEFAULT_CRYPTO_PROVIDER, DEFAULT_AES_IV_PARAMETER_BYTES);
-  }
-
-  public static Crypto aes(String key) {
-    return aes(key.getBytes(CHARSET), DEFAULT_AES_TRANSFORMATION.getTransformationType(), DEFAULT_AES_TRANSFORMATION,
-      AES_DEFAULT_CRYPTO_PROVIDER, DEFAULT_AES_IV_PARAMETER_BYTES);
-  }
-
-  public static Crypto aes128() {
-    return aes(DEFAULT_AES_128_SYMMETRIC_KEY.getBytes(CHARSET), DEFAULT_AES_TRANSFORMATION.getTransformationType(),
-      DEFAULT_AES_TRANSFORMATION, AES_DEFAULT_CRYPTO_PROVIDER, DEFAULT_AES_IV_PARAMETER_BYTES);
-  }
-
-  public static Crypto aes192() {
-    return aes(DEFAULT_AES_192_SYMMETRIC_KEY.getBytes(CHARSET), DEFAULT_AES_TRANSFORMATION.getTransformationType(),
-      DEFAULT_AES_TRANSFORMATION, AES_DEFAULT_CRYPTO_PROVIDER, DEFAULT_AES_IV_PARAMETER_BYTES);
-  }
-
-  public static Crypto aes256() {
-    return aes(DEFAULT_AES_256_SYMMETRIC_KEY.getBytes(CHARSET), DEFAULT_AES_TRANSFORMATION.getTransformationType(),
-      DEFAULT_AES_TRANSFORMATION, AES_DEFAULT_CRYPTO_PROVIDER, DEFAULT_AES_IV_PARAMETER_BYTES);
+  public static Crypto aes(byte[] key, byte[] iv) {
+    return aes(key, DEFAULT_AES_TRANSFORMATION.getTransformationType(), DEFAULT_AES_TRANSFORMATION, AES_DEFAULT_CRYPTO_PROVIDER, iv);
   }
 
   public static Crypto rsa(PublicKey publicKey, PrivateKey privateKey) {

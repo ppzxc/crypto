@@ -22,7 +22,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 class RsaCryptoTest {
 
   @BeforeAll
-  static void beforeAll() throws CryptoException {
+  static void beforeAll() {
     CryptoProvider.BOUNCY_CASTLE.addProvider();
   }
 

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class EmptyCryptoTest {
 
   @BeforeAll
-  static void beforeAll() throws CryptoException {
+  static void beforeAll() {
     CryptoProvider.BOUNCY_CASTLE.addProvider();
   }
 

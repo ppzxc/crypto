@@ -3,8 +3,9 @@ package io.github.ppzxc.crypto;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.PublicKey;
+import java.util.Base64;
+
 import javax.crypto.Cipher;
-import org.bouncycastle.util.encoders.Base64;
 
 public final class RsaPublicCrypto implements Crypto {
 
@@ -25,7 +26,7 @@ public final class RsaPublicCrypto implements Crypto {
     try {
       Cipher cipher = Cipher.getInstance(transformation.getCode(), cryptoProvider.getCode());
       cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-      return Base64.encode(cipher.doFinal(plainText));
+      return Base64.getEncoder().encode(cipher.doFinal(plainText));
     } catch (Exception e) {
       throw new CryptoException(e);
     }

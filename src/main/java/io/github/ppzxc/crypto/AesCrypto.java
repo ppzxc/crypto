@@ -2,10 +2,11 @@ package io.github.ppzxc.crypto;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import org.bouncycastle.util.encoders.Base64;
 
 public final class AesCrypto implements Crypto {
 
@@ -29,7 +30,7 @@ public final class AesCrypto implements Crypto {
     try {
       Cipher cipher = Cipher.getInstance(transformation.getCode(), cryptoProvider.getCode());
       cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
-      return Base64.encode(cipher.doFinal(plainText));
+      return Base64.getEncoder().encode(cipher.doFinal(plainText));
     } catch (Exception e) {
       throw new CryptoException(e);
     }
@@ -55,7 +56,7 @@ public final class AesCrypto implements Crypto {
     try {
       Cipher cipher = Cipher.getInstance(transformation.getCode(), cryptoProvider.getCode());
       cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
-      return cipher.doFinal(Base64.decode(cipherText));
+      return cipher.doFinal(Base64.getDecoder().decode(cipherText));
     } catch (Exception e) {
       throw new CryptoException(e);
     }

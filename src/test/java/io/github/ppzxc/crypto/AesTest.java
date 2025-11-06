@@ -8,7 +8,6 @@ import io.github.ppzxc.fixh.StringUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,7 +17,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 class AesTest {
 
   @BeforeAll
-  static void beforeAll() throws CryptoException {
+  static void beforeAll() {
     CryptoProvider.BOUNCY_CASTLE.addProvider();
   }
 
@@ -27,7 +26,7 @@ class AesTest {
   void should_encryption_and_decryption_when_use_aes_1(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-      aesArgument.provider);
+      aesArgument.provider, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8));
     byte[] expected = ByteArrayUtils.giveMeOne();
 
     // when
@@ -43,7 +42,7 @@ class AesTest {
   void should_encryption_and_decryption_when_use_aes_2(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-      aesArgument.provider);
+      aesArgument.provider, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8));
     byte[] expected = ByteArrayUtils.giveMeOne();
 
     // when
@@ -59,7 +58,7 @@ class AesTest {
   void should_encryption_and_decryption_when_use_aes_3(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-      aesArgument.provider);
+      aesArgument.provider, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8));
     byte[] expected = ByteArrayUtils.giveMeOne();
 
     // when
@@ -75,7 +74,7 @@ class AesTest {
   void should_encryption_and_decryption_when_use_aes_4(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-      aesArgument.provider);
+      aesArgument.provider, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8));
     byte[] expected = ByteArrayUtils.giveMeOneWithUtf8();
 
     // when
@@ -91,7 +90,7 @@ class AesTest {
   void should_encryption_and_decryption_when_use_aes_5(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-      aesArgument.provider);
+      aesArgument.provider, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8));
     String expected = StringUtils.giveMeOne(512);
 
     // when
@@ -107,7 +106,7 @@ class AesTest {
   void should_encryption_and_decryption_when_use_aes_6(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-      aesArgument.provider);
+      aesArgument.provider, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8));
     String expected = StringUtils.giveMeOne(512);
 
     // when
@@ -123,7 +122,7 @@ class AesTest {
   void should_encryption_and_decryption_when_use_aes_7(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-      aesArgument.provider);
+      aesArgument.provider, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8));
     String expected = StringUtils.giveMeOne(512);
 
     // when
@@ -139,7 +138,7 @@ class AesTest {
   void should_encryption_and_decryption_when_use_aes_8(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-      aesArgument.provider);
+      aesArgument.provider, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8));
     String expected = StringUtils.giveMeOne(512);
 
     // when
@@ -155,7 +154,7 @@ class AesTest {
   void should_encryption_and_decryption_when_use_aes_9(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-      aesArgument.provider);
+      aesArgument.provider, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8));
     String expected = StringUtils.giveMeOne(512);
 
     // when
@@ -171,7 +170,7 @@ class AesTest {
   void should_encryption_and_decryption_when_use_aes_10(AesArgument aesArgument) throws CryptoException {
     // given
     Crypto given = CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
-      aesArgument.provider);
+      aesArgument.provider, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8));
     String expected = StringUtils.giveMeOne(512);
 
     // when
@@ -191,11 +190,6 @@ class AesTest {
         () -> CryptoFactory.aes(ByteArrayUtils.giveMeOne(aesArgument.keyLength), aesArgument.transformation,
           aesArgument.provider, ByteArrayUtils.giveMeOne(finalI))).doesNotThrowAnyException();
     }
-  }
-
-  @Test
-  void should_throw_exception_when_decrypt() {
-    assertThatCode(() -> CryptoFactory.aes256().decrypt(new byte[]{'a'})).isInstanceOf(CryptoException.class);
   }
 
   static class AesArgumentsProvider implements ArgumentsProvider {

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class AsymmetricKeyFactoryTest {
 
   @BeforeAll
-  static void beforeAll() throws CryptoException {
+  static void beforeAll() {
     CryptoProvider.BOUNCY_CASTLE.addProvider();
   }
 
@@ -45,8 +45,8 @@ class AsymmetricKeyFactoryTest {
     AsymmetricKey actual = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKey.Type.RSA, given);
 
     // then
-    assertThat(actual.getPublicKey()).isNotBlank().contains(AsymmetricKeyFactory.DEFAULT_PUBLIC_KEY_COMMENT);
-    assertThat(actual.getPrivateKey()).isNotBlank().contains(AsymmetricKeyFactory.DEFAULT_PRIVATE_RSA_KEY_COMMENT);
+    assertThat(actual.getPublicKey()).isNotBlank().contains("PUBLIC_KEY_TYPE");
+    assertThat(actual.getPrivateKey()).isNotBlank().contains("PRIVATE_KEY_TYPE");
   }
 
   @Test
@@ -104,17 +104,5 @@ class AsymmetricKeyFactoryTest {
     assertThat(actual.getPrivate().getAlgorithm()).isEqualTo(expected.getPrivate().getAlgorithm());
     assertThat(actual.getPrivate().getFormat()).isEqualTo(expected.getPrivate().getFormat());
     assertThat(actual.getPrivate().getEncoded()).isEqualTo(expected.getPrivate().getEncoded());
-  }
-
-  @Test
-  void should_created_when_given_asymmetric_key_type() throws NoSuchAlgorithmException, IOException, NoSuchProviderException {
-    // given, when
-    AsymmetricKey actual = AsymmetricKeyFactory.generate(AsymmetricKey.Type.RSA);
-
-    // then
-    assertThat(actual).isNotNull();
-    assertThat(actual.getType()).isEqualByComparingTo(AsymmetricKey.Type.RSA);
-    assertThat(actual.getPublicKey()).isNotBlank();
-    assertThat(actual.getPrivateKey()).isNotBlank();
   }
 }

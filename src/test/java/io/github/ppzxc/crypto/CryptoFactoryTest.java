@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class CryptoFactoryTest {
 
   @BeforeAll
-  static void beforeAll() throws CryptoException {
+  static void beforeAll() {
     CryptoProvider.BOUNCY_CASTLE.addProvider();
   }
 
@@ -35,7 +35,7 @@ class CryptoFactoryTest {
     Transformation transformation = Transformation.AES_CBC_PKCS7PADDING;
 
     // when, then
-    assertThatCode(() -> CryptoFactory.aes(key, transformation)).doesNotThrowAnyException();
+    assertThatCode(() -> CryptoFactory.aes(key, transformation, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8))).doesNotThrowAnyException();
   }
 
   @Test
@@ -44,7 +44,7 @@ class CryptoFactoryTest {
     byte[] key = ByteArrayUtils.giveMeOne(16);
 
     // when, then
-    assertThatCode(() -> CryptoFactory.aes(key)).doesNotThrowAnyException();
+    assertThatCode(() -> CryptoFactory.aes(key, "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8))).doesNotThrowAnyException();
   }
 
   @Test
@@ -53,22 +53,7 @@ class CryptoFactoryTest {
     String key = StringUtils.giveMeOne(16);
 
     // when, then
-    assertThatCode(() -> CryptoFactory.aes(key)).doesNotThrowAnyException();
-  }
-
-  @Test
-  void should_return_crypto_4() {
-    assertThatCode(CryptoFactory::aes128).doesNotThrowAnyException();
-  }
-
-  @Test
-  void should_return_crypto_5() {
-    assertThatCode(CryptoFactory::aes192).doesNotThrowAnyException();
-  }
-
-  @Test
-  void should_return_crypto_6() {
-    assertThatCode(CryptoFactory::aes256).doesNotThrowAnyException();
+    assertThatCode(() -> CryptoFactory.aes(key.getBytes(StandardCharsets.UTF_8), "nanoitDefaultIvs".getBytes(StandardCharsets.UTF_8))).doesNotThrowAnyException();
   }
 
   @Test

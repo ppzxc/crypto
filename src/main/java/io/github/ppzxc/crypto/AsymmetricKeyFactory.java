@@ -23,10 +23,8 @@ public final class AsymmetricKeyFactory {
 
   public static final CryptoProvider CRYPTO_PROVIDER = CryptoProvider.BOUNCY_CASTLE;
   public static final int DEFAULT_KEY_SIZE = 2048;
-  public static final String DEFAULT_PUBLIC_KEY_COMMENT = "PUBLIC KEY";
-  public static final String DEFAULT_PRIVATE_RSA_KEY_COMMENT = "RSA PRIVATE KEY";
 
-  private AsymmetricKeyFactory() {
+	private AsymmetricKeyFactory() {
   }
 
   public static KeyPair generate(AsymmetricKey.Type type, CryptoProvider cryptoProvider, int keySize)
@@ -77,12 +75,12 @@ public final class AsymmetricKeyFactory {
 
   public static AsymmetricKey toAsymmetricKey(AsymmetricKey.Type type, KeyPair keyPair)
     throws IOException {
-    return AsymmetricKey.of(type, writeToString(DEFAULT_PUBLIC_KEY_COMMENT, keyPair.getPublic().getEncoded()),
-      writeToString(DEFAULT_PRIVATE_RSA_KEY_COMMENT, keyPair.getPrivate().getEncoded()));
+    return AsymmetricKey.of(type, writeToString("PUBLIC_KEY_TYPE", keyPair.getPublic().getEncoded()),
+      writeToString("PRIVATE_KEY_TYPE", keyPair.getPrivate().getEncoded()));
   }
 
-  private static String writeToString(String desc, byte[] key) throws IOException {
-    PemObject pemObject = new PemObject(desc, key);
+  private static String writeToString(String type, byte[] content) throws IOException {
+    PemObject pemObject = new PemObject(type, content);
     StringWriter stringWriter = new StringWriter();
     PemWriter pemWriter = new PemWriter(stringWriter);
     pemWriter.writeObject(pemObject);

@@ -20,7 +20,7 @@ class RsaPublicCryptoTest {
   private Crypto decryptor;
 
   @BeforeAll
-  static void beforeAll() throws CryptoException {
+  static void beforeAll() {
     CryptoProvider.BOUNCY_CASTLE.addProvider();
   }
 
