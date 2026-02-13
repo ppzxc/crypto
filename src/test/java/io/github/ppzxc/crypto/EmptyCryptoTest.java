@@ -85,4 +85,28 @@ class EmptyCryptoTest {
     // then
     assertThat(actual).isEmpty();
   }
+
+  @Test
+  void should_return_null_when_byte_decrypt_to_string() throws CryptoException {
+    // given
+    Crypto crypto = EmptyCrypto.create();
+
+    // when
+    String actual = crypto.decryptToString(ByteArrayUtils.giveMeOne());
+
+    // then
+    assertThat(actual).isNull();
+  }
+
+  @Test
+  void should_return_null_when_string_decrypt_to_string() throws CryptoException {
+    // given
+    Crypto crypto = EmptyCrypto.create();
+
+    // when
+    String actual = crypto.decryptToString(StringUtils.giveMeOne());
+
+    // then
+    assertThat(actual).isNull();
+  }
 }

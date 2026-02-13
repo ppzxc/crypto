@@ -59,4 +59,16 @@ class SymmetricKeyTest {
     // then
     assertThat(actual.getKeyByteArray()).isEqualTo(expected.getBytes(StandardCharsets.UTF_8));
   }
+
+  @Test
+  void should_return_key_with_custom_charset() {
+    // given
+    String expected = StringUtils.giveMeOne();
+
+    // when
+    SymmetricKey actual = new SymmetricKey(expected);
+
+    // then
+    assertThat(actual.getKeyByteArray(StandardCharsets.UTF_16)).isEqualTo(expected.getBytes(StandardCharsets.UTF_16));
+  }
 }
