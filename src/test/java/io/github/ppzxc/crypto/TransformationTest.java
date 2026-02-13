@@ -75,6 +75,14 @@ class TransformationTest {
       .isEqualTo(TransformationPkcs.PKCS7PADDING);
   }
 
+  @Test
+  void should_throw_exception_when_unsupported_combination() {
+    // RSA with PKCS7Padding is not in the enum
+    assertThatCode(() -> Transformation.of("RSA", "CBC", "PKCS7Padding"))
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessageContaining("not supported transformation");
+  }
+
   private static String[] nullEmptyBlank() {
     return new String[]{null, "", "        "};
   }

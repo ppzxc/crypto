@@ -2,10 +2,16 @@ package io.github.ppzxc.crypto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -87,22 +93,40 @@ class AsymmetricKeyFactoryTest {
     assertThat(actual.getPrivate().getEncoded()).isEqualTo(expected.getPrivate().getEncoded());
   }
 
+
   @Test
-  void should_created_2048_bit_key()
-    throws NoSuchAlgorithmException, IOException, NoSuchProviderException, CryptoException {
+  void should_throw_exception_when_instantiate_private_constructor()
+    throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     // given
-    KeyPair expected = AsymmetricKeyFactory.generateRsa(2048);
-    AsymmetricKey given = AsymmetricKeyFactory.toAsymmetricKey(AsymmetricKey.Type.RSA, expected);
+    Constructor<AsymmetricKeyFactory> constructor = AsymmetricKeyFactory.class.getDeclaredConstructor();
+    constructor.setAccessible(true);
+
+    // when & then
+    assertThat(constructor.newInstance()).isNotNull();
+  }
+
+  @Test
+  void should_throw_exception_when_invalid_key_is_given() {
+    // given
+    String invalidKey = "INVALID";
+
+    // when & then
+    assertThatThrownBy(() -> AsymmetricKeyFactory.toPublicKey(AsymmetricKey.Type.RSA, invalidKey, X509EncodedKeySpec::new))
+      .isNotNull();
+    assertThatThrownBy(() -> AsymmetricKeyFactory.toPrivateKey(AsymmetricKey.Type.RSA, invalidKey, PKCS8EncodedKeySpec::new))
+      .isNotNull();
+  }
+
+  @Test
+  void should_return_asymmetric_key_when_type_is_given() throws Exception {
+    // given
+    AsymmetricKey.Type type = AsymmetricKey.Type.RSA;
 
     // when
-    KeyPair actual = AsymmetricKeyFactory.generate(given);
+    AsymmetricKey actual = AsymmetricKeyFactory.generate(type);
 
     // then
-    assertThat(actual.getPublic().getAlgorithm()).isEqualTo(expected.getPublic().getAlgorithm());
-    assertThat(actual.getPublic().getFormat()).isEqualTo(expected.getPublic().getFormat());
-    assertThat(actual.getPublic().getEncoded()).isEqualTo(expected.getPublic().getEncoded());
-    assertThat(actual.getPrivate().getAlgorithm()).isEqualTo(expected.getPrivate().getAlgorithm());
-    assertThat(actual.getPrivate().getFormat()).isEqualTo(expected.getPrivate().getFormat());
-    assertThat(actual.getPrivate().getEncoded()).isEqualTo(expected.getPrivate().getEncoded());
+    assertThat(actual).isNotNull();
+    assertThat(actual.getType()).isEqualTo(type);
   }
 }

@@ -4,6 +4,7 @@ io-github-ppzxc-fixh = "0.0.17"
 org-junit-jupiter = "5.10.2"
 org-assertj-core = "3.25.3"
 net-thebugmc-gradle-sonatype-central-portal-publisher = "1.2.2"
+me-champeau-jmh = "0.7.3"
 
 [libraries]
 org-bouncycastle-bcprov-jdk18on = { group = "org.bouncycastle", name = "bcprov-jdk18on", version.ref = "org-bouncycastle-bcprov-jdk18on" }
@@ -13,3 +14,4 @@ org-assertj-core = { group = "org.assertj", name = "assertj-core", version.ref =
 
 [plugins]
 net-thebugmc-gradle-sonatype-central-portal-publisher = { id = "net.thebugmc.gradle.sonatype-central-portal-publisher", version.ref = "net-thebugmc-gradle-sonatype-central-portal-publisher" }
+me-champeau-jmh = { id = "me.champeau.jmh", version.ref = "me-champeau-jmh" }
